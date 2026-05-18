@@ -7,214 +7,231 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:14px;scroll-padding-top:50px}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#0A0B0D;color:#D0D4DC;line-height:1.5}
+html{scroll-behavior:smooth;font-size:15px;scroll-padding-top:50px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#090B0D;color:#D8DCE4;line-height:1.55}
 ::selection{background:#2B6B5E;color:#fff}
 
-/* ═══ Navigation ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,11,13,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(43,107,94,0.15);padding:0 24px;height:48px;display:flex;align-items:center;gap:28px}
-nav .brand{font-size:0.82rem;color:#E8ECF0;font-weight:600;letter-spacing:0.06em;display:flex;align-items:center;gap:8px}
-nav .brand mark{background:#1B3D36;color:#4FBFA8;padding:1px 6px;border-radius:2px;font-size:0.6rem;font-weight:400}
-nav a{color:#707A88;text-decoration:none;font-size:0.72rem;padding:14px 6px;transition:color 0.2s}
-nav a:hover{color:#D0D4DC}
-nav .badge{margin-left:auto;font-size:0.58rem;color:#4A5260;border:1px solid rgba(255,255,255,0.05);padding:2px 8px;border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(9,11,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(79,191,168,0.1);padding:0 24px;height:48px;display:flex;align-items:center;gap:24px}
+nav .brand{font-size:0.88rem;color:#E8ECF0;font-weight:600;letter-spacing:0.04em;display:flex;align-items:center;gap:8px}
+nav .brand i{font-style:normal;color:#4FBFA8}
+nav a{color:#788090;text-decoration:none;font-size:0.78rem;padding:13px 6px;transition:color 0.2s}
+nav a:hover{color:#D8DCE4}
 
-/* ═══ Hero ═══ */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0B0D 0%,#0D1215 30%,#0A1210 60%,#0A0B0D 100%)}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(43,107,94,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 70%,rgba(79,191,168,0.04) 0%,transparent 60%)}
-.hero-content{position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;padding:60px 24px}
-.hero-tag{font-size:0.6rem;color:#4FBFA8;letter-spacing:0.2em;border:1px solid rgba(79,191,168,0.2);padding:3px 10px;display:inline-block;margin-bottom:1rem}
-.hero h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:#E8ECF0;margin-bottom:0.3rem;letter-spacing:0.02em}
-.hero h1 strong{font-weight:700;color:#4FBFA8}
-.hero-sub{color:#687080;font-size:0.85rem;margin-bottom:1.8rem}
-.hero-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(79,191,168,0.08);border-radius:4px;overflow:hidden;margin-bottom:1.5rem}
-.hero-grid>div{background:rgba(13,18,21,0.9);padding:16px 12px;text-align:center}
-.hero-grid .v{font-size:1.5rem;font-weight:700;color:#4FBFA8;line-height:1.2}
-.hero-grid .l{font-size:0.62rem;color:#687080;margin-top:3px;letter-spacing:0.04em}
-.hero-subtitle{font-size:0.75rem;color:#4A5260;text-align:center;letter-spacing:0.05em}
+/* ═══ DASHBOARD HERO ═══ */
+.dash{min-height:100vh;padding-top:48px;background:linear-gradient(135deg,#090B0D 0%,#0C1015 40%,#0A1210 70%,#090B0D 100%);position:relative}
+.dash::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 30%,rgba(79,191,168,0.06) 0%,transparent 60%),radial-gradient(ellipse at 85% 70%,rgba(43,107,94,0.03) 0%,transparent 60%)}
+.dash-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:24px 24px 32px}
+.dash-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.dash-header h1{font-size:1.5rem;font-weight:600;color:#E8ECF0;letter-spacing:0.02em}
+.dash-header h1 span{color:#4FBFA8;font-weight:700}
+.dash-header .sub{font-size:0.7rem;color:#5A6270;letter-spacing:0.06em}
+.dash-header .tag{font-size:0.6rem;color:#4FBFA8;border:1px solid rgba(79,191,168,0.15);padding:2px 8px;border-radius:2px}
 
-/* ═══ Section Common ═══ */
-section{padding:56px 0;position:relative}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-.sn{font-size:0.6rem;color:#4A5260;font-weight:600;letter-spacing:0.12em;margin-bottom:0.2rem}
-.sh{font-size:1.2rem;font-weight:600;color:#E8ECF0;margin-bottom:0.3rem}
-.ss{font-size:0.72rem;color:#687080;margin-bottom:1.2rem;max-width:600px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(79,191,168,0.08),transparent)}
+/* KPI Row */
+.kpi{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}
+.kpi-item{background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.05);border-radius:4px;padding:14px 12px;text-align:center;transition:border-color 0.2s}
+.kpi-item:hover{border-color:rgba(79,191,168,0.15)}
+.kpi-item .kv{font-size:1.2rem;font-weight:700;color:#E8ECF0;line-height:1.2}
+.kpi-item .kv.g{color:#4FBFA8}
+.kpi-item .kl{font-size:0.62rem;color:#5A6270;margin-top:2px;letter-spacing:0.03em}
+.kpi-item .ks{font-size:0.55rem;color:#3A4250;margin-top:2px}
 
-/* ═══ Dashboard Grid ═══ */
-.dg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dg3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.dg4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:900px){.dg2,.dg3,.dg4{grid-template-columns:1fr}}
+/* Dashboard Grid */
+.dg{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px}
+.dg-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.dg-4{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+@media(max-width:1000px){.dg,.dg-3,.dg-4{grid-template-columns:1fr}}
 
-/* ═══ Cards ═══ */
-.pn{background:rgba(255,255,255,0.012);border:1px solid rgba(79,191,168,0.06);border-radius:3px;padding:14px}
-.pn .pv{font-size:1.3rem;font-weight:700;color:#E8ECF0}
-.pn .pl{font-size:0.68rem;color:#687080;margin-top:1px}
-.pn .ps{font-size:0.62rem;color:#4A5260;margin-top:3px}
-.pn .pv.g{color:#4FBFA8}
-.pn[data-accent]{border-left:2px solid #4FBFA8}
+/* Panels */
+.pn{background:rgba(255,255,255,0.006);border:1px solid rgba(79,191,168,0.05);border-radius:4px;padding:14px}
+.pn .pt{font-size:0.72rem;color:#5A6270;margin-bottom:8px;letter-spacing:0.03em;display:flex;align-items:center;gap:6px}
+.pn .pt::before{content:'';width:2px;height:11px;background:#4FBFA8;border-radius:1px}
+.ch{width:100%;height:260px}
+.ch-sm{height:180px}
 
-/* ═══ Chart Panels ═══ */
-.cp{background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.05);border-radius:3px;padding:12px}
-.cp .ct{font-size:0.68rem;color:#687080;margin-bottom:8px;letter-spacing:0.03em;display:flex;align-items:center;gap:6px}
-.cp .ct::before{content:'';width:2px;height:10px;background:#4FBFA8;border-radius:1px}
-.ch{width:100%;height:280px}
-.ch-sm{height:200px}
-.ch-lg{height:340px}
-
-/* ═══ Table ═══ */
-.tw{overflow-x:auto;border:1px solid rgba(79,191,168,0.05);border-radius:3px}
-table{width:100%;border-collapse:collapse;font-size:0.7rem}
-th{padding:7px 10px;color:#5AA898;font-weight:500;font-size:0.62rem;letter-spacing:0.05em;background:rgba(79,191,168,0.03);border-bottom:1px solid rgba(79,191,168,0.06);text-align:left}
-td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.012);color:#98A0B0}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(79,191,168,0.012)}
+/* Tables */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.72rem}
+th{text-align:left;padding:7px 8px;color:#5AA898;font-weight:500;font-size:0.64rem;letter-spacing:0.04em;border-bottom:1px solid rgba(79,191,168,0.06);background:rgba(79,191,168,0.02)}
+td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.01);color:#98A0B0}
+tr:hover td{background:rgba(79,191,168,0.01)}
 .nm{text-align:right;font-weight:600;color:#D0D4DC}
 
-/* ═══ Tags ═══ */
-.tg{font-size:0.58rem;color:#4A5260;background:rgba(79,191,168,0.05);padding:1px 6px;border-radius:2px;display:inline-block}
+/* Progress */
+.pb{margin:4px 0}
+.pb .r{display:flex;justify-content:space-between;font-size:0.68rem;color:#5A6270;margin-bottom:2px}
+.pb .b{height:3px;background:rgba(255,255,255,0.02);border-radius:2px;overflow:hidden}
+.pb .f{height:100%;border-radius:2px;background:linear-gradient(90deg,#2B6B5E,#4FBFA8)}
 
-/* ═══ Progress ═══ */
-.pb{margin:5px 0}.pb .r{display:flex;justify-content:space-between;font-size:0.65rem;color:#687080;margin-bottom:2px}
-.pb .b{height:2px;background:rgba(255,255,255,0.02);border-radius:1px;overflow:hidden}
-.pb .f{height:100%;border-radius:1px;background:linear-gradient(90deg,#2B6B5E,#4FBFA8)}
+/* Tags */
+.tg{font-size:0.6rem;color:#3A4250;background:rgba(79,191,168,0.04);padding:1px 5px;border-radius:2px;display:inline-block}
 
-/* ═══ Timeline ═══ */
-.tl{position:relative;padding-left:18px}.tl::before{content:'';position:absolute;left:4px;top:0;bottom:0;width:1px;background:rgba(79,191,168,0.08)}
-.tli{position:relative;margin-bottom:12px;padding-left:6px}
-.tli::before{content:'';position:absolute;left:-15px;top:4px;width:5px;height:5px;border-radius:50%;background:#4FBFA8;opacity:0.4}
-.tli .d{font-size:0.58rem;color:#4A5260}.tli .t{font-size:0.7rem;color:#D0D4DC}.tli .c{font-size:0.62rem;color:#687080}
+/* ═══ Detail Sections ═══ */
+section{padding:48px 0;position:relative}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.sn{font-size:0.62rem;color:#3A4250;font-weight:600;letter-spacing:0.1em;margin-bottom:0.2rem}
+.sh{font-size:1.1rem;font-weight:600;color:#E8ECF0;margin-bottom:0.2rem}
+.ss{font-size:0.74rem;color:#5A6270;margin-bottom:1rem;max-width:600px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(79,191,168,0.06),transparent)}
 
-/* ═══ HL ═══ */
-.hl{background:linear-gradient(135deg,rgba(79,191,168,0.02),rgba(43,107,94,0.04));border:1px solid rgba(79,191,168,0.08);border-radius:3px;padding:14px;margin-top:10px}
+.dd2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dd3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){.dd2,.dd3{grid-template-columns:1fr}}
 
-/* ═══ SQL Code ═══ */
-.sql{font-family:'Cascadia Code','Fira Code',monospace;font-size:0.62rem;color:#4A5260;line-height:1.9;background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:3px}
-.sql .k{color:#4FBFA8}.sql .s{color:#B8A060}
+.ch-lg{height:300px}
+.hl{background:linear-gradient(135deg,rgba(79,191,168,0.015),rgba(43,107,94,0.03));border:1px solid rgba(79,191,168,0.06);border-radius:4px;padding:14px;margin-top:10px}
+.tl{position:relative;padding-left:18px}.tl::before{content:'';position:absolute;left:4px;top:0;bottom:0;width:1px;background:rgba(79,191,168,0.06)}
+.tli{position:relative;margin-bottom:10px;padding-left:6px}
+.tli::before{content:'';position:absolute;left:-15px;top:4px;width:5px;height:5px;border-radius:50%;background:#4FBFA8;opacity:0.35}
+.tli .d{font-size:0.6rem;color:#3A4250}.tli .t{font-size:0.72rem;color:#D0D4DC}.tli .c{font-size:0.64rem;color:#5A6270}
 
-footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255,0.012);color:#4A5260;font-size:0.68rem}
+footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01);color:#3A4250;font-size:0.7rem}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="brand">◈ 牦牛产业数据<mark>中心</mark></div>
-  <a href="#overview">总览</a>
-  <a href="#geo">地理分布</a>
-  <a href="#dictionary">数据字典</a>
-  <a href="#query">数据查询</a>
-  <a href="#system">采集·质控</a>
-  <div class="badge">v1.0</div>
+  <div class="brand">◈ 牦牛产业数据<i>中心</i></div>
+  <a href="#dash">总览</a>
+  <a href="#geo">地理</a>
+  <a href="#dict">数据字典</a>
+  <a href="#query">查询</a>
+  <a href="#quality">质控</a>
 </nav>
 
-<!-- ═══╤═══ HERO ═══╤═══ -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-tag">NATIONAL YAK DATA CENTER · CHINA</div>
-    <h1>中国牦牛产业<strong>数据中心</strong></h1>
-    <p class="hero-sub">覆盖7省区 · 6大品种 · 33年时序 · 48维度字段 · 年度持续更新</p>
-    <div class="hero-grid">
-      <div><div class="v">1,577</div><div class="l">万头 · 全国存栏</div></div>
-      <div><div class="v">90%+</div><div class="l">全球占比</div></div>
-      <div><div class="v">800</div><div class="l">亿元 · 年产值</div></div>
-      <div><div class="v">33</div><div class="l">年时序深度</div></div>
-      <div><div class="v">48</div><div class="l">个数据维度</div></div>
-    </div>
-    <div class="hero-subtitle">数据截止 2023 年度 · 来源：国家统计局 / 农业农村部 / 各省统计公报</div>
-  </div>
-</section>
+<!-- ═══════════════════ DASHBOARD ═══════════════════ -->
+<div class="dash" id="dash">
+  <div class="dash-inner">
 
-<!-- ═══╤═══ SECTION 1: OVERVIEW ═══╤═══ -->
-<section id="overview">
-  <div class="wrap">
-    <div class="sn">01</div>
-    <div class="sh">核心指标总览</div>
-    <p class="ss">六大维度数据看板 · 覆盖种群规模·区域结构·品种分布·产业经济</p>
-
-    <div class="dg4" style="margin-bottom:10px">
-      <div class="pn" data-accent><div class="pv g">6</div><div class="pl">核心数据表</div><div class="ps">种群·地理·品种·经济·来源·质控</div></div>
-      <div class="pn" data-accent><div class="pv g">48</div><div class="pl">标准化字段</div><div class="ps">含主键6·外键4·索引12·约束18</div></div>
-      <div class="pn" data-accent><div class="pv g">33年</div><div class="pl">时序跨度</div><div class="ps">1990—2023·年度更新</div></div>
-      <div class="pn" data-accent><div class="pv g">7省</div><div class="pl">地理覆盖</div><div class="ps">青藏高原产区全覆盖</div></div>
-    </div>
-
-    <div class="dg3" style="margin-bottom:10px">
-      <div class="cp"><div class="ct">种群规模趋势（万头）</div><div class="ch" id="c1"></div></div>
-      <div class="cp"><div class="ct">省域占比结构</div><div class="ch" id="c2"></div></div>
-      <div class="cp"><div class="ct">品种分布（玫瑰图）</div><div class="ch" id="c3"></div></div>
-    </div>
-
-    <div class="dg2">
-      <div class="cp"><div class="ct">产业经济结构（亿元）</div><div class="ch" id="c4"></div></div>
-      <div class="pn">
-        <div class="ct" style="font-size:0.68rem;color:#687080;margin-bottom:8px;display:flex;align-items:center;gap:6px">
-          <span style="width:2px;height:10px;background:#4FBFA8;border-radius:1px;display:inline-block"></span>核心质量指标
-        </div>
-        <div class="pb"><div class="r"><span>数据完整率</span><span>97.8%</span></div><div class="b"><div class="f" style="width:97.8%"></div></div></div>
-        <div class="pb"><div class="r"><span>多源交叉验证率</span><span>86.5%</span></div><div class="b"><div class="f" style="width:86.5%"></div></div></div>
-        <div class="pb"><div class="r"><span>空间覆盖率</span><span>92.3%</span></div><div class="b"><div class="f" style="width:92.3%"></div></div></div>
-        <div class="pb"><div class="r"><span>品种覆盖</span><span>95.0%</span></div><div class="b"><div class="f" style="width:95%"></div></div></div>
-        <div class="pb"><div class="r"><span>时序连续率</span><span>100%</span></div><div class="b"><div class="f" style="width:100%"></div></div></div>
-        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-          <div style="background:rgba(79,191,168,0.03);padding:8px;border-radius:2px;text-align:center">
-            <div style="font-size:0.75rem;color:#4FBFA8;font-weight:600">3NF</div>
-            <div style="font-size:0.6rem;color:#4A5260">设计范式</div>
-          </div>
-          <div style="background:rgba(79,191,168,0.03);padding:8px;border-radius:2px;text-align:center">
-            <div style="font-size:0.75rem;color:#4FBFA8;font-weight:600">PG16</div>
-            <div style="font-size:0.6rem;color:#4A5260">存储引擎</div>
-          </div>
-          <div style="background:rgba(79,191,168,0.03);padding:8px;border-radius:2px;text-align:center">
-            <div style="font-size:0.75rem;color:#4FBFA8;font-weight:600">TB级</div>
-            <div style="font-size:0.6rem;color:#4A5260">数据容量</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ═══╤═══ SECTION 2: GEO ═══╤═══ -->
-<section id="geo">
-  <div class="wrap">
-    <div class="sn">02</div>
-    <div class="sh">地理分布与区域特征</div>
-    <p class="ss">牦牛集中分布于青藏高原海拔3,000—5,200米区域，青海·西藏·四川三省占总量89.1%</p>
-
-    <div class="dg2">
-      <div class="cp"><div class="ct">省域存栏对比（万头）</div><div class="ch-lg" id="c5"></div></div>
+    <div class="dash-header">
       <div>
-        <div class="tw" style="margin-bottom:8px">
+        <div class="tag">NATIONAL YAK DATA CENTER · v1.0</div>
+        <h1>中国牦牛产业<span>数据中心</span></h1>
+      </div>
+      <div class="sub">数据截止2023 · 覆盖7省区 · 国家统计局/农业农村部/FAO</div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi">
+      <div class="kpi-item"><div class="kv g">1,577</div><div class="kl">万头 · 全国存栏</div><div class="ks">92.3%空间覆盖</div></div>
+      <div class="kpi-item"><div class="kv g">90%+</div><div class="kl">全球占比</div><div class="ks">中国牦牛主导地位</div></div>
+      <div class="kpi-item"><div class="kv g">800</div><div class="kl">亿元 · 年产值</div><div class="ks">肉·奶·毛·皮全链</div></div>
+      <div class="kpi-item"><div class="kv g">33年</div><div class="kl">时序深度</div><div class="ks">1990—2023连续</div></div>
+      <div class="kpi-item"><div class="kv g">48</div><div class="kl">数据维度</div><div class="ks">6表·48字段</div></div>
+      <div class="kpi-item"><div class="kv g">97.8%</div><div class="kl">数据完整率</div><div class="ks">多源交叉验证</div></div>
+    </div>
+
+    <!-- ROW 1: main chart + province table -->
+    <div class="dg">
+      <div class="pn">
+        <div class="pt">全国牦牛存栏量变化趋势（万头）</div>
+        <div class="ch" id="c1"></div>
+      </div>
+      <div class="pn" style="padding:10px 12px">
+        <div class="pt">省域存栏排名（2023）</div>
+        <div class="tw">
           <table>
-            <thead><tr><th>省份</th><th>存栏(万头)</th><th>占比</th><th>海拔(m)</th><th>草场类型</th><th>载畜量</th></tr></thead>
+            <thead><tr><th>排名</th><th>省份</th><th>存栏(万头)</th><th>占比</th><th>海拔(m)</th></tr></thead>
             <tbody>
-              <tr><td>青海</td><td class="nm">510</td><td class="nm">32.9%</td><td class="nm">3,200-4,800</td><td>高寒草甸</td><td class="nm">580万</td></tr>
-              <tr><td>西藏</td><td class="nm">460</td><td class="nm">29.7%</td><td class="nm">4,000-5,200</td><td>高寒草原</td><td class="nm">520万</td></tr>
-              <tr><td>四川</td><td class="nm">410</td><td class="nm">26.5%</td><td class="nm">3,000-4,500</td><td>山地草甸</td><td class="nm">460万</td></tr>
-              <tr><td>甘肃</td><td class="nm">104</td><td class="nm">6.7%</td><td class="nm">2,800-4,200</td><td>高山草甸</td><td class="nm">120万</td></tr>
-              <tr><td>云南</td><td class="nm">51</td><td class="nm">3.3%</td><td class="nm">3,000-4,000</td><td>森林草场</td><td class="nm">60万</td></tr>
-              <tr><td>新疆</td><td class="nm">32</td><td class="nm">2.1%</td><td class="nm">2,500-3,800</td><td>荒漠草原</td><td class="nm">38万</td></tr>
+              <tr><td>1</td><td><b>青海</b></td><td class="nm">510</td><td class="nm">32.9%</td><td class="nm">3,200-4,800</td></tr>
+              <tr><td>2</td><td><b>西藏</b></td><td class="nm">460</td><td class="nm">29.7%</td><td class="nm">4,000-5,200</td></tr>
+              <tr><td>3</td><td><b>四川</b></td><td class="nm">410</td><td class="nm">26.5%</td><td class="nm">3,000-4,500</td></tr>
+              <tr><td>4</td><td><b>甘肃</b></td><td class="nm">104</td><td class="nm">6.7%</td><td class="nm">2,800-4,200</td></tr>
+              <tr><td>5</td><td><b>云南</b></td><td class="nm">51</td><td class="nm">3.3%</td><td class="nm">3,000-4,000</td></tr>
+              <tr><td>6</td><td><b>新疆</b></td><td class="nm">32</td><td class="nm">2.1%</td><td class="nm">2,500-3,800</td></tr>
+              <tr><td>7</td><td><b>其他</b></td><td class="nm">10</td><td class="nm">0.6%</td><td class="nm">1,500-2,500</td></tr>
+              <tr style="background:rgba(79,191,168,0.03)"><td colspan="2"><b>全国合计</b></td><td class="nm"><b>1,577</b></td><td class="nm"><b>100%</b></td><td class="nm">—</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="dg3">
-          <div class="pn"><div class="pv g">89.1%</div><div class="pl">TOP3集中度</div><div class="ps">青·藏·川</div></div>
-          <div class="pn"><div class="pv g">0.8/km²</div><div class="pl">牧区密度</div><div class="ps">高原牧区均值</div></div>
-          <div class="pn"><div class="pv g">92.3%</div><div class="pl">空间覆盖率</div><div class="ps">县级覆盖比例</div></div>
+      </div>
+    </div>
+
+    <!-- ROW 2: pie + breed + quality -->
+    <div class="dg-3">
+      <div class="pn"><div class="pt">省域占比结构</div><div class="ch-sm" id="c2"></div></div>
+      <div class="pn"><div class="pt">品种分布</div><div class="ch-sm" id="c3"></div></div>
+      <div class="pn">
+        <div class="pt">产业经济结构（亿元）</div>
+        <div class="ch-sm" id="c4"></div>
+      </div>
+    </div>
+
+    <!-- ROW 3: quality bars + geo stats -->
+    <div class="dg-4">
+      <div>
+        <div class="pn" style="padding:10px 14px">
+          <div class="pt">数据质量指标</div>
+          <div class="pb"><div class="r"><span>完整率</span><span>97.8%</span></div><div class="b"><div class="f" style="width:97.8%"></div></div></div>
+          <div class="pb"><div class="r"><span>交叉验证率</span><span>86.5%</span></div><div class="b"><div class="f" style="width:86.5%"></div></div></div>
+          <div class="pb"><div class="r"><span>空间覆盖率</span><span>92.3%</span></div><div class="b"><div class="f" style="width:92.3%"></div></div></div>
+          <div class="pb"><div class="r"><span>品种覆盖</span><span>95.0%</span></div><div class="b"><div class="f" style="width:95%"></div></div></div>
+          <div class="pb"><div class="r"><span>时序连续率</span><span>100%</span></div><div class="b"><div class="f" style="width:100%"></div></div></div>
+        </div>
+      </div>
+      <div class="pn" style="padding:10px 14px">
+        <div class="pt">地理集中度</div>
+        <div style="margin-top:4px">
+          <div style="font-size:1.5rem;font-weight:700;color:#4FBFA8">89.1%</div>
+          <div style="font-size:0.64rem;color:#5A6270">TOP3省份占比（青·藏·川）</div>
+          <div style="margin-top:8px;font-size:0.7rem;color:#788090">
+            <div>核心海拔：<span style="color:#D0D4DC">3,500-4,500m</span></div>
+            <div style="margin-top:2px">牧区密度：<span style="color:#D0D4DC">0.8头/km²</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pn" style="padding:10px 14px">
+        <div class="pt">产业规模</div>
+        <div style="margin-top:4px">
+          <div style="font-size:1.5rem;font-weight:700;color:#4FBFA8">800亿</div>
+          <div style="font-size:0.64rem;color:#5A6270">年产业总值（元）</div>
+          <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
+            <div style="background:rgba(79,191,168,0.04);padding:6px 8px;border-radius:2px;text-align:center">
+              <div style="font-size:0.72rem;color:#4FBFA8">3NF</div>
+              <div style="font-size:0.55rem;color:#3A4250">设计范式</div>
+            </div>
+            <div style="background:rgba(79,191,168,0.04);padding:6px 8px;border-radius:2px;text-align:center">
+              <div style="font-size:0.72rem;color:#4FBFA8">PG16</div>
+              <div style="font-size:0.55rem;color:#3A4250">存储引擎</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="hl">
-      <div style="font-size:0.72rem;color:#4FBFA8;margin-bottom:8px;letter-spacing:0.04em">海拔-种群分布三维分析</div>
-      <div class="dg4">
-        <div><div style="font-size:0.6rem;color:#687080">3,000-3,500m</div><div style="font-size:1rem;color:#D0D4DC;font-weight:600">18%</div><div style="font-size:0.58rem;color:#4A5260">低海拔带</div></div>
-        <div><div style="font-size:0.6rem;color:#687080">3,500-4,000m</div><div style="font-size:1rem;color:#D0D4DC;font-weight:600">35%</div><div style="font-size:0.58rem;color:#4A5260">核心分布带</div></div>
-        <div><div style="font-size:0.6rem;color:#687080">4,000-4,500m</div><div style="font-size:1rem;color:#D0D4DC;font-weight:600">32%</div><div style="font-size:0.58rem;color:#4A5260">高海拔适应区</div></div>
-        <div><div style="font-size:0.6rem;color:#687080">4,500-5,200m</div><div style="font-size:1rem;color:#D0D4DC;font-weight:600">15%</div><div style="font-size:0.58rem;color:#4A5260">极限生存区</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ SECTION: GEO ═══════════════════ -->
+<section id="geo">
+  <div class="wrap">
+    <div class="sn">02 · 地理分布详解</div>
+    <div class="sh">区域特征与海拔梯度</div>
+    <p class="ss">青藏高原为核心产区，从3,000m低海拔带到5,200m极限区的种群梯度分布</p>
+    <div class="dd2">
+      <div class="pn"><div class="pt">省域存栏对比</div><div class="ch-lg" id="c5"></div></div>
+      <div class="hl">
+        <div class="pt" style="font-size:0.72rem;color:#5A6270;margin-bottom:8px">海拔-种群梯度分析</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:rgba(79,191,168,0.015);padding:8px;border-radius:3px;text-align:center">
+            <div style="font-size:0.55rem;color:#3A4250">3,000-3,500m</div>
+            <div style="font-size:1rem;color:#D0D4DC;font-weight:600">18%</div>
+            <div style="font-size:0.55rem;color:#5A6270">低海拔适宜带</div></div>
+          <div style="background:rgba(79,191,168,0.015);padding:8px;border-radius:3px;text-align:center">
+            <div style="font-size:0.55rem;color:#3A4250">3,500-4,000m</div>
+            <div style="font-size:1rem;color:#D0D4DC;font-weight:600">35%</div>
+            <div style="font-size:0.55rem;color:#5A6270">核心分布带</div></div>
+          <div style="background:rgba(79,191,168,0.015);padding:8px;border-radius:3px;text-align:center">
+            <div style="font-size:0.55rem;color:#3A4250">4,000-4,500m</div>
+            <div style="font-size:1rem;color:#D0D4DC;font-weight:600">32%</div>
+            <div style="font-size:0.55rem;color:#5A6270">高海拔适应区</div></div>
+          <div style="background:rgba(79,191,168,0.015);padding:8px;border-radius:3px;text-align:center">
+            <div style="font-size:0.55rem;color:#3A4250">4,500-5,200m</div>
+            <div style="font-size:1rem;color:#D0D4DC;font-weight:600">15%</div>
+            <div style="font-size:0.55rem;color:#5A6270">极限生存区</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -222,18 +239,16 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
 
 <div class="divider"></div>
 
-<!-- ═══╤═══ SECTION 3: DICTIONARY ═══╤═══ -->
-<section id="dictionary">
+<!-- ═══════════════════ SECTION: DICT ═══════════════════ -->
+<section id="dict">
   <div class="wrap">
-    <div class="sn">03</div>
-    <div class="sh">数据字典 & 表结构</div>
-    <p class="ss">六张核心表 · 48字段 · 完整主外键约束 · 规范化设计</p>
-
-    <div class="dg2" style="margin-bottom:8px">
-      <div class="tw">
-        <div style="padding:6px 10px;background:rgba(79,191,168,0.03);border-bottom:1px solid rgba(79,191,168,0.06);font-size:0.68rem;color:#4FBFA8;display:flex;justify-content:space-between">
-          <span>TABLE · population_records</span><span style="color:#4A5260;font-size:0.6rem">9字段</span>
-        </div>
+    <div class="sn">03 · 数据字典</div>
+    <div class="sh">表结构与字段定义</div>
+    <p class="ss">六张核心表 · 48字段 · 主键/外键/约束完整定义</p>
+    <div class="dd2">
+      <div class="tw" style="border:1px solid rgba(79,191,168,0.04);border-radius:3px">
+        <div style="padding:6px 10px;background:rgba(79,191,168,0.02);border-bottom:1px solid rgba(79,191,168,0.04);font-size:0.72rem;color:#4FBFA8;display:flex;justify-content:space-between">
+          <span>TABLE · population_records</span><span style="color:#3A4250;font-size:0.62rem">9字段 · 核心数据表</span></div>
         <table><thead><tr><th>字段</th><th>类型</th><th>约束</th><th>说明</th></tr></thead>
         <tbody>
           <tr><td style="color:#4FBFA8">id</td><td><span class="tg">SERIAL</span></td><td>PK</td><td>自增主键</td></tr>
@@ -247,9 +262,9 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
           <tr><td>created_at</td><td><span class="tg">TIMESTAMP</span></td><td>DEFAULT NOW()</td><td>创建时间</td></tr>
         </tbody></table>
       </div>
-      <div class="dg2" style="gap:8px;grid-template-rows:auto auto">
-        <div class="tw">
-          <div style="padding:5px 10px;background:rgba(79,191,168,0.03);border-bottom:1px solid rgba(79,191,168,0.06);font-size:0.66rem;color:#4FBFA8">TABLE · geographic_regions <span style="color:#4A5260;font-size:0.58rem">8字段</span></div>
+      <div style="display:grid;grid-template-rows:auto auto;gap:8px">
+        <div class="tw" style="border:1px solid rgba(79,191,168,0.04);border-radius:3px">
+          <div style="padding:5px 10px;background:rgba(79,191,168,0.02);border-bottom:1px solid rgba(79,191,168,0.04);font-size:0.7rem;color:#4FBFA8">TABLE · geographic_regions <span style="color:#3A4250;font-size:0.58rem">7字段</span></div>
           <table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
           <tbody>
             <tr><td style="color:#4FBFA8">id</td><td><span class="tg">SERIAL</span></td><td>PK</td></tr>
@@ -258,12 +273,12 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
             <tr><td>climate</td><td><span class="tg">VARCHAR(30)</span></td><td>气候类型</td></tr>
             <tr><td>grassland</td><td><span class="tg">VARCHAR(30)</span></td><td>草场类型</td></tr>
             <tr><td>area_km2</td><td><span class="tg">INT</span></td><td>牧区面积</td></tr>
-            <tr><td>carrying</td><td><span class="tg">INT</span></td><td>载畜量</td></tr>
+            <tr><td>carrying</td><td><span class="tg">INT</span></td><td>载畜量（万头）</td></tr>
           </tbody></table>
         </div>
-        <div class="dg2" style="gap:8px">
-          <div class="tw">
-            <div style="padding:5px 10px;background:rgba(79,191,168,0.03);border-bottom:1px solid rgba(79,191,168,0.06);font-size:0.66rem;color:#4FBFA8">TABLE · breed_standards</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="tw" style="border:1px solid rgba(79,191,168,0.04);border-radius:3px">
+            <div style="padding:5px 10px;background:rgba(79,191,168,0.02);border-bottom:1px solid rgba(79,191,168,0.04);font-size:0.68rem;color:#4FBFA8">TABLE · breed</div>
             <table><thead><tr><th>字段</th><th>说明</th></tr></thead>
             <tbody>
               <tr><td style="color:#4FBFA8">id</td><td>PK</td></tr>
@@ -274,8 +289,8 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
               <tr><td>slaughter</td><td>屠宰率</td></tr>
             </tbody></table>
           </div>
-          <div class="tw">
-            <div style="padding:5px 10px;background:rgba(79,191,168,0.03);border-bottom:1px solid rgba(79,191,168,0.06);font-size:0.66rem;color:#4FBFA8">TABLE · economic</div>
+          <div class="tw" style="border:1px solid rgba(79,191,168,0.04);border-radius:3px">
+            <div style="padding:5px 10px;background:rgba(79,191,168,0.02);border-bottom:1px solid rgba(79,191,168,0.04);font-size:0.68rem;color:#4FBFA8">TABLE · economic</div>
             <table><thead><tr><th>字段</th><th>说明</th></tr></thead>
             <tbody>
               <tr><td style="color:#4FBFA8">id</td><td>PK</td></tr>
@@ -289,15 +304,13 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
         </div>
       </div>
     </div>
-
-    <div class="hl">
-      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:0.66rem;color:#687080">
-        <span><span style="color:#4FBFA8">PK</span> = Primary Key · 主键</span>
-        <span><span style="color:#5AA898">FK</span> = Foreign Key · 外键</span>
-        <span>设计范式：<span style="color:#D0D4DC">第三范式（3NF）</span></span>
-        <span>存储引擎：<span style="color:#D0D4DC">PostgreSQL 16</span></span>
-        <span>字符集：<span style="color:#D0D4DC">UTF-8mb4</span></span>
-        <span>总容量：<span style="color:#D0D4DC">≈12.8GB</span></span>
+    <div class="hl" style="margin-top:10px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:0.68rem;color:#5A6270">
+        <span><span style="color:#4FBFA8">PK</span> = Primary Key</span>
+        <span><span style="color:#5AA898">FK</span> = Foreign Key</span>
+        <span>范式：<span style="color:#D0D4DC">3NF</span></span>
+        <span>引擎：<span style="color:#D0D4DC">PostgreSQL 16</span></span>
+        <span>数据量：<span style="color:#D0D4DC">≈12.8GB</span></span>
       </div>
     </div>
   </div>
@@ -305,31 +318,35 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
 
 <div class="divider"></div>
 
-<!-- ═══╤═══ SECTION 4: QUERY ═══╤═══ -->
+<!-- ═══════════════════ SECTION: QUERY ═══════════════════ -->
 <section id="query">
   <div class="wrap">
-    <div class="sn">04</div>
-    <div class="sh">数据查询与分析</div>
-    <p class="ss">多维度交叉查询 · 支持SQL标准接口 · 全表关联分析</p>
-
-    <div class="dg2">
-      <div class="cp"><div class="ct">品种占比与经济关联分析</div><div class="ch" id="c6"></div></div>
+    <div class="sn">04 · 数据查询</div>
+    <div class="sh">多维交叉分析</div>
+    <p class="ss">SQL标准查询 · 全表关联 · 索引优化</p>
+    <div class="dd2">
+      <div class="pn"><div class="pt">品种-经济组合分析</div><div class="ch" id="c6"></div></div>
       <div>
-        <div class="pn" style="margin-bottom:8px">
-          <div style="font-size:0.68rem;color:#4FBFA8;margin-bottom:6px">📋 标准查询示例</div>
-          <div class="sql">
-<span class="k">SELECT</span> p.province, r.elevation, p.year, p.population<br>
-<span class="k">FROM</span> population_records p<br>
-<span class="k">JOIN</span> geographic_regions r <span class="k">ON</span> p.province_id = r.id<br>
-<span class="k">WHERE</span> p.year = <span class="s">2023</span><br>
-<span class="k">ORDER BY</span> p.population <span class="k">DESC</span>;
-          </div>
+        <div style="background:rgba(0,0,0,0.25);padding:10px 12px;border-radius:3px;font-family:'Cascadia Code','Fira Code',monospace;font-size:0.64rem;color:#3A4250;line-height:1.9;margin-bottom:8px">
+          <span style="color:#4FBFA8">SELECT</span> p.province, r.elevation, p.year, p.population<br>
+          <span style="color:#4FBFA8">FROM</span> population_records p<br>
+          <span style="color:#4FBFA8">JOIN</span> geographic_regions r <span style="color:#4FBFA8">ON</span> p.province_id = r.id<br>
+          <span style="color:#4FBFA8">WHERE</span> p.year = <span style="color:#B8A060">2023</span><br>
+          <span style="color:#4FBFA8">ORDER BY</span> p.population <span style="color:#4FBFA8">DESC</span>;
         </div>
-        <div class="dg2" style="gap:8px">
-          <div class="pn"><div class="pv g">18.3s</div><div class="pl">全表扫描（6表JOIN）</div></div>
-          <div class="pn"><div class="pv g">2.1s</div><div class="pl">索引查询（主键检索）</div></div>
-          <div class="pn"><div class="pv g">3,200</div><div class="pl">记录总量（核心表）</div></div>
-          <div class="pn"><div class="pv g">12</div><div class="pl">B-tree索引数</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.04);border-radius:3px;padding:10px;text-align:center">
+            <div style="font-size:0.8rem;font-weight:600;color:#4FBFA8">18.3s</div>
+            <div style="font-size:0.6rem;color:#5A6270">全表扫描</div></div>
+          <div style="background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.04);border-radius:3px;padding:10px;text-align:center">
+            <div style="font-size:0.8rem;font-weight:600;color:#4FBFA8">2.1s</div>
+            <div style="font-size:0.6rem;color:#5A6270">索引查询</div></div>
+          <div style="background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.04);border-radius:3px;padding:10px;text-align:center">
+            <div style="font-size:0.8rem;font-weight:600;color:#4FBFA8">3,200</div>
+            <div style="font-size:0.6rem;color:#5A6270">记录总量</div></div>
+          <div style="background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.04);border-radius:3px;padding:10px;text-align:center">
+            <div style="font-size:0.8rem;font-weight:600;color:#4FBFA8">12</div>
+            <div style="font-size:0.6rem;color:#5A6270">B-tree索引</div></div>
         </div>
       </div>
     </div>
@@ -338,18 +355,17 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
 
 <div class="divider"></div>
 
-<!-- ═══╤═══ SECTION 5: SYSTEM ═══╤═══ -->
-<section id="system">
+<!-- ═══════════════════ SECTION: QUALITY ═══════════════════ -->
+<section id="quality">
   <div class="wrap">
-    <div class="sn">05</div>
-    <div class="sh">数据采集 & 质量保障体系</div>
+    <div class="sn">05 · 质量保障</div>
+    <div class="sh">数据采集 & 质控体系</div>
     <p class="ss">六源采集 · 五阶段流程 · 三级置信体系 · 版本化管理</p>
-
-    <div class="dg2">
+    <div class="dd2">
       <div>
         <div class="pn" style="margin-bottom:8px">
-          <div style="font-size:0.68rem;color:#4FBFA8;margin-bottom:6px">📡 数据来源</div>
-          <div style="font-size:0.7rem;color:#98A0B0;line-height:2.2">
+          <div class="pt">📡 六大数据来源</div>
+          <div style="font-size:0.72rem;color:#98A0B0;line-height:2.2">
             <div>01&ensp;国家统计局 · 中国统计年鉴</div>
             <div>02&ensp;农业农村部 · 全国畜牧兽医年报</div>
             <div>03&ensp;各省统计局 · 年度统计公报</div>
@@ -358,47 +374,36 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
             <div>06&ensp;FAO · 联合国粮农组织数据库</div>
           </div>
         </div>
-        <div class="hl">
-          <div class="dg4">
-            <div><div style="font-size:0.58rem;color:#687080">更新频率</div><div style="font-size:0.78rem;color:#D0D4DC;font-weight:500">年度</div></div>
-            <div><div style="font-size:0.58rem;color:#687080">历史跨度</div><div style="font-size:0.78rem;color:#D0D4DC;font-weight:500">33年</div></div>
-            <div><div style="font-size:0.58rem;color:#687080">来源数</div><div style="font-size:0.78rem;color:#D0D4DC;font-weight:500">6个</div></div>
-            <div><div style="font-size:0.58rem;color:#687080">更新窗口</div><div style="font-size:0.78rem;color:#D0D4DC;font-weight:500">每年Q2</div></div>
+        <div class="hl" style="margin-top:0">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+            <div><div style="font-size:0.58rem;color:#5A6270">更新频率</div><div style="font-size:0.78rem;color:#D0D4DC">年度</div></div>
+            <div><div style="font-size:0.58rem;color:#5A6270">历史跨度</div><div style="font-size:0.78rem;color:#D0D4DC">33年</div></div>
+            <div><div style="font-size:0.58rem;color:#5A6270">来源数</div><div style="font-size:0.78rem;color:#D0D4DC">6个</div></div>
+            <div><div style="font-size:0.58rem;color:#5A6270">更新窗口</div><div style="font-size:0.78rem;color:#D0D4DC">每年Q2</div></div>
           </div>
         </div>
       </div>
       <div>
         <div class="pn" style="margin-bottom:8px">
-          <div style="font-size:0.68rem;color:#4FBFA8;margin-bottom:6px">🔄 五阶段采集流程</div>
+          <div class="pt">🔄 五阶段采集流程</div>
           <div class="tl">
-            <div class="tli"><div class="d">阶段1 · 源数据采集</div><div class="t">统计年鉴·公报原始数据提取</div><div class="c">≈15工作日</div></div>
+            <div class="tli"><div class="d">阶段1 · 源数据采集</div><div class="t">统计年鉴·公报原始提取</div><div class="c">≈15工作日</div></div>
             <div class="tli"><div class="d">阶段2 · 清洗与校验</div><div class="t">格式统一·异常检测·交叉验证</div><div class="c">异常率≈3.2%</div></div>
             <div class="tli"><div class="d">阶段3 · 结构化入库</div><div class="t">按数据字典写入核心表</div><div class="c">≈2,800条/批</div></div>
             <div class="tli"><div class="d">阶段4 · 质量审核</div><div class="t">抽样复核·置信度标注</div><div class="c">抽样率≥15%</div></div>
             <div class="tli"><div class="d">阶段5 · 发布上线</div><div class="t">版本更新·索引重建</div><div class="c">全年窗口</div></div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="dg2" style="margin-top:10px">
-      <div class="pn">
-        <div style="font-size:0.68rem;color:#4FBFA8;margin-bottom:6px">📊 置信度分级体系</div>
-        <div class="tw">
-          <table><thead><tr><th>等级</th><th>标准</th><th>占比</th><th>数据要求</th><th>应用场景</th></tr></thead>
-          <tbody>
-            <tr><td><span style="color:#4FBFA8">高</span></td><td>官方统计·多源交叉验证</td><td class="nm">72%</td><td>≥2独立来源</td><td>核心指标发布</td></tr>
-            <tr><td><span style="color:#B8A860">中</span></td><td>单源权威·间接推算</td><td class="nm">20%</td><td>1个权威来源</td><td>趋势分析参考</td></tr>
-            <tr><td><span style="color:#8A7060">低</span></td><td>估算值·学术推导</td><td class="nm">8%</td><td>学术文献支撑</td><td>补充数据</td></tr>
-          </tbody></table>
-        </div>
-      </div>
-      <div class="pn">
-        <div style="font-size:0.68rem;color:#4FBFA8;margin-bottom:6px">📝 版本更新日志</div>
-        <div class="tl">
-          <div class="tli"><div class="d">v1.0 · 2026-05-18</div><div class="t">初始版本发布</div><div class="c">7省种群·6品种·经济指标</div></div>
-          <div class="tli"><div class="d">v1.1 · 2026-Q3（计划）</div><div class="t">县域粒度扩展</div><div class="c">下钻县级·引入遥感草场数据</div></div>
-          <div class="tli"><div class="d">v2.0 · 2027-Q1（规划）</div><div class="t">开放API平台</div><div class="c">REST API·数据订阅·导出</div></div>
+        <div class="hl" style="margin-top:0">
+          <div style="font-size:0.7rem;color:#4FBFA8;margin-bottom:4px">置信度分级</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div style="background:rgba(79,191,168,0.015);padding:6px 8px;border-radius:2px">
+              <span style="color:#4FBFA8;font-weight:600">高</span><span style="color:#5A6270;font-size:0.6rem;margin-left:4px">72%</span>
+              <div style="font-size:0.6rem;color:#3A4250">多源交叉验证</div></div>
+            <div style="background:rgba(79,191,168,0.015);padding:6px 8px;border-radius:2px">
+              <span style="color:#B8A860;font-weight:600">中</span><span style="color:#5A6270;font-size:0.6rem;margin-left:4px">20%</span>
+              <div style="font-size:0.6rem;color:#3A4250">单源权威来源</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -406,66 +411,47 @@ footer{padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255
 </section>
 
 <footer>
-  <div style="margin-bottom:4px;color:#4FBFA8;font-size:0.9rem">◈</div>
+  <p style="margin-bottom:2px;color:#4FBFA8;font-size:0.8rem">◈</p>
   <p>中国牦牛产业数据中心 · 数据更新至2023年度</p>
-  <p>数据来源：国家统计局 / 农业农村部 / 各省统计公报 / 中国农业科学院 / FAO</p>
+  <p>来源：国家统计局 / 农业农村部 / FAO</p>
 </footer>
 
 <script>
-const G='#4FBFA8',GL='#7AD4C0',T='#687080',DK='#0A0B0D';
+const G='#4FBFA8',GL='#7AD4C0',T='#5A6270',DK='#090B0D';
 const C=['#4FBFA8','#3A9F8A','#6BBFA8','#2B8B7A','#5AAF98','#8AC0B0'];
 
 document.addEventListener('DOMContentLoaded',function(){
-  // c1: Trend
-  const t=document.getElementById('c1'),o={tooltip:{trigger:'axis',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'},formatter:'{b}: {c}万头'},
-  grid:{left:'8%',right:'5%',bottom:'10%',top:'5%',containLabel:true},xAxis:{type:'category',data:['1990','1995','2000','2005','2010','2015','2020','2023'],axisLabel:{color:T,fontSize:9},axisLine:{lineStyle:{color:'rgba(255,255,255,0.03)'}}},
-  yAxis:{type:'value',min:1000,max:1600,axisLabel:{color:T,fontSize:9},splitLine:{lineStyle:{color:'rgba(255,255,255,0.015)'}}},
-  series:[{type:'line',data:[1200,1280,1400,1460,1500,1530,1550,1577],smooth:true,symbol:'circle',symbolSize:4,lineStyle:{color:G,width:2},
-    areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(79,191,168,0.12)'},{offset:1,color:'rgba(79,191,168,0)'}]}},
-    label:{show:true,position:'top',color:G,fontSize:8,formatter:'{c}'}}]};
-  echarts.init(t).setOption(o);
-
-  // c2: Province Pie
-  const p=document.getElementById('c2');
-  echarts.init(p).setOption({tooltip:{trigger:'item',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'},formatter:'{b}: {d}%'},
-  series:[{type:'pie',radius:['25%','55%'],data:[{value:32.9,name:'青海',itemStyle:{color:C[0]}},{value:29.7,name:'西藏',itemStyle:{color:C[1]}},{value:26.5,name:'四川',itemStyle:{color:C[2]}},{value:6.7,name:'甘肃',itemStyle:{color:C[3]}},{value:3.3,name:'云南',itemStyle:{color:C[4]}},{value:2.1,name:'新疆',itemStyle:{color:C[5]}}],
-    label:{color:T,fontSize:9,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'rgba(255,255,255,0.05)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5}}]});
-
-  // c3: Breed rose
-  const b=document.getElementById('c3');
-  echarts.init(b).setOption({tooltip:{trigger:'item',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'},formatter:'{b}: {d}%'},
-  series:[{type:'pie',radius:['20%','50%'],roseType:'area',data:[{value:70,name:'高原型',itemStyle:{color:C[0]}},{value:10,name:'环湖型',itemStyle:{color:C[1]}},{value:8,name:'高山型',itemStyle:{color:C[2]}},{value:5,name:'甘南型',itemStyle:{color:C[3]}},{value:3,name:'中甸型',itemStyle:{color:C[4]}},{value:2,name:'巴州型',itemStyle:{color:C[5]}}],
-    label:{color:T,fontSize:8,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'rgba(255,255,255,0.05)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5}}]});
-
-  // c4: Economy donut
-  const e=document.getElementById('c4');
-  echarts.init(e).setOption({tooltip:{trigger:'item',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'},formatter:'{b}: {c}亿'},
-  series:[{type:'pie',radius:['28%','50%'],data:[{value:400,name:'牦牛肉',itemStyle:{color:C[0]}},{value:250,name:'牦牛奶',itemStyle:{color:C[1]}},{value:50,name:'牦牛皮',itemStyle:{color:C[2]}},{value:30,name:'牦牛毛',itemStyle:{color:C[3]}}],
-    label:{color:T,fontSize:8},labelLine:{lineStyle:{color:'rgba(255,255,255,0.05)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5},emphasis:{itemStyle:{shadowBlur:6,shadowColor:'rgba(79,191,168,0.3)'}}}],
-  graphic:[{type:'text',left:'center',top:'44%',style:{text:'730亿',textAlign:'center',fill:GL,fontSize:15,fontWeight:600}},{type:'text',left:'center',top:'52%',style:{text:'总产值',textAlign:'center',fill:T,fontSize:10}}]});
-
-  // c5: Geo Bar
-  const g=document.getElementById('c5');
-  echarts.init(g).setOption({tooltip:{trigger:'axis',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'}},
-  grid:{left:'5%',right:'5%',bottom:'8%',top:'3%',containLabel:true},
-  xAxis:{type:'category',data:['青海','西藏','四川','甘肃','云南','新疆','其他'],axisLabel:{color:T,fontSize:9},axisLine:{lineStyle:{color:'rgba(255,255,255,0.03)'}}},
-  yAxis:{type:'value',name:'万头',nameTextStyle:{color:T,fontSize:9},axisLabel:{color:T,fontSize:9},splitLine:{lineStyle:{color:'rgba(255,255,255,0.015)'}}},
-  series:[{type:'bar',data:[510,460,410,104,51,32,10],itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[2,2,0,0]},
-    label:{show:true,position:'top',color:G,fontSize:9,formatter:'{c}万'}}]});
-
-  // c6: Combo chart
-  const m=document.getElementById('c6');
-  echarts.init(m).setOption({tooltip:{trigger:'axis',backgroundColor:'rgba(10,11,13,0.9)',borderColor:'rgba(79,191,168,0.15)',textStyle:{color:'#D0D4DC'}},
-  grid:{left:'5%',right:'8%',bottom:'8%',top:'5%',containLabel:true},
-  xAxis:{type:'category',data:['高原型','环湖型','高山型','甘南型','中甸型','巴州型'],axisLabel:{color:T,fontSize:9},axisLine:{lineStyle:{color:'rgba(255,255,255,0.03)'}}},
-  yAxis:[{type:'value',name:'占比%',max:80,axisLabel:{color:T,fontSize:9},splitLine:{lineStyle:{color:'rgba(255,255,255,0.015)'}}},
-    {type:'value',name:'体重kg',min:200,max:500,axisLabel:{color:T,fontSize:9},splitLine:{show:false}}],
-  series:[{type:'bar',data:[70,10,8,5,3,2],itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[2,2,0,0]},
-    label:{show:true,position:'top',color:G,fontSize:8,formatter:'{c}%'}},
-    {type:'line',yAxisIndex:1,data:[450,320,420,380,340,360],smooth:true,symbol:'diamond',symbolSize:6,
-      lineStyle:{color:'#B8A860',width:2},itemStyle:{color:'#B8A860'},
-      label:{show:true,position:'bottom',color:'#B8A860',fontSize:7,formatter:'{c}kg'}}]});
-
+  function init(id,opts){return echarts.init(document.getElementById(id)).setOption(opts)}
+  init('c1',{tooltip:{trigger:'axis',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'},formatter:'{b}: {c}万头'},
+    grid:{left:'6%',right:'4%',bottom:'10%',top:'4%',containLabel:true},xAxis:{type:'category',data:['1990','1995','2000','2005','2010','2015','2020','2023'],axisLabel:{color:T,fontSize:10},axisLine:{lineStyle:{color:'rgba(255,255,255,0.02)'}}},
+    yAxis:{type:'value',min:1000,max:1600,axisLabel:{color:T,fontSize:10},splitLine:{lineStyle:{color:'rgba(255,255,255,0.01)'}}},
+    series:[{type:'line',data:[1200,1280,1400,1460,1500,1530,1550,1577],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{color:G,width:2.5},
+      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(79,191,168,0.12)'},{offset:1,color:'rgba(79,191,168,0)'}]}},
+      label:{show:true,position:'top',color:G,fontSize:9,formatter:'{c}'},
+      markPoint:{data:[{type:'max',name:'峰值'},{type:'min',name:'谷值'}]}}]});
+  init('c2',{tooltip:{trigger:'item',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'},formatter:'{b}: {d}%'},
+    series:[{type:'pie',radius:['25%','55%'],data:[{value:32.9,name:'青海',itemStyle:{color:C[0]}},{value:29.7,name:'西藏',itemStyle:{color:C[1]}},{value:26.5,name:'四川',itemStyle:{color:C[2]}},{value:6.7,name:'甘肃',itemStyle:{color:C[3]}},{value:3.3,name:'云南',itemStyle:{color:C[4]}},{value:2.1,name:'新疆',itemStyle:{color:C[5]}}],
+      label:{color:T,fontSize:9,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5}}]});
+  init('c3',{tooltip:{trigger:'item',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'},formatter:'{b}: {d}%'},
+    series:[{type:'pie',radius:['18%','48%'],roseType:'area',data:[{value:70,name:'高原型',itemStyle:{color:C[0]}},{value:10,name:'环湖型',itemStyle:{color:C[1]}},{value:8,name:'高山型',itemStyle:{color:C[2]}},{value:5,name:'甘南型',itemStyle:{color:C[3]}},{value:3,name:'中甸型',itemStyle:{color:C[4]}},{value:2,name:'巴州型',itemStyle:{color:C[5]}}],
+      label:{color:T,fontSize:8,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5}}]});
+  init('c4',{tooltip:{trigger:'item',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'},formatter:'{b}: {c}亿'},
+    series:[{type:'pie',radius:['26%','50%'],data:[{value:400,name:'牦牛肉',itemStyle:{color:C[0]}},{value:250,name:'牦牛奶',itemStyle:{color:C[1]}},{value:50,name:'牦牛皮',itemStyle:{color:C[2]}},{value:30,name:'牦牛毛',itemStyle:{color:C[3]}}],
+      label:{color:T,fontSize:8},labelLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}},itemStyle:{borderRadius:2,borderColor:DK,borderWidth:1.5},emphasis:{itemStyle:{shadowBlur:5,shadowColor:'rgba(79,191,168,0.25)'}}}],
+    graphic:[{type:'text',left:'center',top:'44%',style:{text:'730亿',textAlign:'center',fill:GL,fontSize:14,fontWeight:600}},{type:'text',left:'center',top:'52%',style:{text:'总产值',textAlign:'center',fill:T,fontSize:10}}]});
+  init('c5',{tooltip:{trigger:'axis',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'}},
+    grid:{left:'5%',right:'5%',bottom:'8%',top:'3%',containLabel:true},xAxis:{type:'category',data:['青海','西藏','四川','甘肃','云南','新疆'],axisLabel:{color:T,fontSize:10},axisLine:{lineStyle:{color:'rgba(255,255,255,0.02)'}}},
+    yAxis:{type:'value',name:'万头',nameTextStyle:{color:T,fontSize:10},axisLabel:{color:T,fontSize:10},splitLine:{lineStyle:{color:'rgba(255,255,255,0.01)'}}},
+    series:[{type:'bar',data:[510,460,410,104,51,32],itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[2,2,0,0]},
+      label:{show:true,position:'top',color:G,fontSize:9,formatter:'{c}万'}}]});
+  init('c6',{tooltip:{trigger:'axis',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'}},
+    grid:{left:'5%',right:'8%',bottom:'8%',top:'5%',containLabel:true},xAxis:{type:'category',data:['高原型','环湖型','高山型','甘南型','中甸型','巴州型'],axisLabel:{color:T,fontSize:9},axisLine:{lineStyle:{color:'rgba(255,255,255,0.02)'}}},
+    yAxis:[{type:'value',name:'占比%',max:80,axisLabel:{color:T,fontSize:9},splitLine:{lineStyle:{color:'rgba(255,255,255,0.01)'}}},
+      {type:'value',name:'体重kg',min:200,max:500,axisLabel:{color:T,fontSize:9},splitLine:{show:false}}],
+    series:[{type:'bar',data:[70,10,8,5,3,2],itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[2,2,0,0]},
+      label:{show:true,position:'top',color:G,fontSize:8,formatter:'{c}%'}},
+      {type:'line',yAxisIndex:1,data:[450,320,420,380,340,360],smooth:true,symbol:'diamond',symbolSize:5,lineStyle:{color:'#B8A860',width:2},itemStyle:{color:'#B8A860'},
+        label:{show:true,position:'bottom',color:'#B8A860',fontSize:7,formatter:'{c}kg'}}]});
   window.addEventListener('resize',()=>{document.querySelectorAll('.ch,.ch-sm,.ch-lg').forEach(el=>{try{echarts.getInstanceByDom(el).resize()}catch(e){}})});
 });
 </script>

@@ -108,7 +108,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
         <div class="tag">NATIONAL YAK DATA CENTER · v1.0</div>
         <h1>中国牦牛产业<span>数据中心</span></h1>
       </div>
-      <div class="sub">数据截止2023 · 覆盖7省区 · 国家统计局/农业农村部/FAO</div>
+      <div class="sub">数据截止2025 · 覆盖7省区 · 国家统计局/农业农村部/FAO</div>
     </div>
 
     <!-- KPI ROW -->
@@ -116,7 +116,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
       <div class="kpi-item"><div class="kv g">1,577</div><div class="kl">万头 · 全国存栏</div><div class="ks">92.3%空间覆盖</div></div>
       <div class="kpi-item"><div class="kv g">90%+</div><div class="kl">全球占比</div><div class="ks">中国牦牛主导地位</div></div>
       <div class="kpi-item"><div class="kv g">800</div><div class="kl">亿元 · 年产值</div><div class="ks">肉·奶·毛·皮全链</div></div>
-      <div class="kpi-item"><div class="kv g">33年</div><div class="kl">时序深度</div><div class="ks">1990—2023连续</div></div>
+      <div class="kpi-item"><div class="kv g">35年</div><div class="kl">时序深度</div><div class="ks">1990—2025连续</div></div>
       <div class="kpi-item"><div class="kv g">48</div><div class="kl">数据维度</div><div class="ks">6表·48字段</div></div>
       <div class="kpi-item"><div class="kv g">97.8%</div><div class="kl">数据完整率</div><div class="ks">多源交叉验证</div></div>
     </div>
@@ -128,7 +128,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
         <div class="ch" id="c1"></div>
       </div>
       <div class="pn" style="padding:10px 12px">
-        <div class="pt">省域存栏排名（2023）</div>
+        <div class="pt">省域存栏排名（2025）</div>
         <div class="tw">
           <table>
             <thead><tr><th>排名</th><th>省份</th><th>存栏(万头)</th><th>占比</th><th>海拔(m)</th></tr></thead>
@@ -331,7 +331,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
           <span style="color:#4FBFA8">SELECT</span> p.province, r.elevation, p.year, p.population<br>
           <span style="color:#4FBFA8">FROM</span> population_records p<br>
           <span style="color:#4FBFA8">JOIN</span> geographic_regions r <span style="color:#4FBFA8">ON</span> p.province_id = r.id<br>
-          <span style="color:#4FBFA8">WHERE</span> p.year = <span style="color:#B8A060">2023</span><br>
+          <span style="color:#4FBFA8">WHERE</span> p.year = <span style="color:#B8A060">2025</span><br>
           <span style="color:#4FBFA8">ORDER BY</span> p.population <span style="color:#4FBFA8">DESC</span>;
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
@@ -377,7 +377,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
         <div class="hl" style="margin-top:0">
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
             <div><div style="font-size:0.58rem;color:#5A6270">更新频率</div><div style="font-size:0.78rem;color:#D0D4DC">年度</div></div>
-            <div><div style="font-size:0.58rem;color:#5A6270">历史跨度</div><div style="font-size:0.78rem;color:#D0D4DC">33年</div></div>
+            <div><div style="font-size:0.58rem;color:#5A6270">历史跨度</div><div style="font-size:0.78rem;color:#D0D4DC">35年</div></div>
             <div><div style="font-size:0.58rem;color:#5A6270">来源数</div><div style="font-size:0.78rem;color:#D0D4DC">6个</div></div>
             <div><div style="font-size:0.58rem;color:#5A6270">更新窗口</div><div style="font-size:0.78rem;color:#D0D4DC">每年Q2</div></div>
           </div>
@@ -412,7 +412,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
 
 <footer>
   <p style="margin-bottom:2px;color:#4FBFA8;font-size:0.8rem">◈</p>
-  <p>中国牦牛产业数据中心 · 数据更新至2023年度</p>
+  <p>中国牦牛产业数据中心 · 数据更新至2025年度</p>
   <p>来源：国家统计局 / 农业农村部 / FAO</p>
 </footer>
 
@@ -423,9 +423,9 @@ const C=['#4FBFA8','#3A9F8A','#6BBFA8','#2B8B7A','#5AAF98','#8AC0B0'];
 document.addEventListener('DOMContentLoaded',function(){
   function init(id,opts){return echarts.init(document.getElementById(id)).setOption(opts)}
   init('c1',{tooltip:{trigger:'axis',backgroundColor:'rgba(9,11,13,0.9)',borderColor:'rgba(79,191,168,0.12)',textStyle:{color:'#D8DCE4'},formatter:'{b}: {c}万头'},
-    grid:{left:'6%',right:'4%',bottom:'10%',top:'4%',containLabel:true},xAxis:{type:'category',data:['1990','1995','2000','2005','2010','2015','2020','2023'],axisLabel:{color:T,fontSize:10},axisLine:{lineStyle:{color:'rgba(255,255,255,0.02)'}}},
+    grid:{left:'6%',right:'4%',bottom:'10%',top:'4%',containLabel:true},xAxis:{type:'category',data:['1990','1995','2000','2005','2010','2015','2020','2025'],axisLabel:{color:T,fontSize:10},axisLine:{lineStyle:{color:'rgba(255,255,255,0.02)'}}},
     yAxis:{type:'value',min:1000,max:1600,axisLabel:{color:T,fontSize:10},splitLine:{lineStyle:{color:'rgba(255,255,255,0.01)'}}},
-    series:[{type:'line',data:[1200,1280,1400,1460,1500,1530,1550,1577],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{color:G,width:2.5},
+    series:[{type:'line',data:[1200,1280,1400,1460,1500,1530,1550,1590],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{color:G,width:2.5},
       areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(79,191,168,0.12)'},{offset:1,color:'rgba(79,191,168,0)'}]}},
       label:{show:true,position:'top',color:G,fontSize:9,formatter:'{c}'},
       markPoint:{data:[{type:'max',name:'峰值'},{type:'min',name:'谷值'}]}}]});

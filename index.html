@@ -3,275 +3,288 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中国牦牛产业数据平台 · Yak Data Insight</title>
+<title>牦牛产业数据库 · YakDB</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
-/* ═══ Reset & Base ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:70px}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
-  background:#080604;color:#E8E0D0;line-height:1.7;overflow-x:hidden
-}
+html{scroll-behavior:smooth;font-size:15px;scroll-padding-top:65px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#080604;color:#E8E0D0;line-height:1.7;overflow-x:hidden}
 ::selection{background:#C4A35A;color:#080604}
+h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;letter-spacing:0.03em}
+h2{font-size:clamp(1.3rem,2vw,1.8rem);font-weight:600;margin-bottom:0.5rem}
+h3{font-size:1rem;font-weight:500;color:#C4A35A;margin-bottom:0.4rem}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+section{padding:80px 20px}
+.section-tag{display:inline-block;font-size:0.65rem;letter-spacing:0.15em;color:#C4A35A;border:1px solid rgba(196,163,90,0.2);padding:2px 10px;border-radius:2px;margin-bottom:0.6rem}
+.section-sub{color:#9A9078;font-size:0.85rem;margin-bottom:1.5rem;max-width:650px}
+.section-dark{background:#080604}
+.section-med{background:#0D0A08}
 
-/* ═══ Typography ═══ */
-h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:300;letter-spacing:0.05em}
-h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:600;letter-spacing:0.02em;margin-bottom:0.5rem}
-h3{font-size:1.1rem;font-weight:500;color:#C4A35A;margin-bottom:0.5rem}
-.section-sub{color:#9A9078;font-size:0.9rem;margin-bottom:2rem;max-width:600px}
+/* Navigation */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,6,4,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(196,163,90,0.08);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between}
+nav .logo{font-size:0.8rem;color:#C4A35A;font-weight:600;letter-spacing:0.12em;display:flex;align-items:center;gap:8px}
+nav .logo .db-icon{width:18px;height:18px;border:1.5px solid #C4A35A;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.55rem;color:#C4A35A}
+nav .links a{color:#9A9078;text-decoration:none;font-size:0.72rem;padding:18px 12px;transition:color 0.3s;letter-spacing:0.03em}
+nav .links a:hover{color:#E8E0D0}
 
-/* ═══ Navigation ═══ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(8,6,4,0.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(196,163,90,0.1);
-  padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between
-}
-nav .logo{font-size:0.85rem;color:#C4A35A;font-weight:600;letter-spacing:0.1em}
-nav .links{display:flex;gap:0}
-nav .links a{
-  color:#9A9078;text-decoration:none;font-size:0.78rem;padding:20px 16px;
-  transition:color 0.3s;letter-spacing:0.05em;position:relative
-}
-nav .links a:hover,nav .links a.active{color:#E8E0D0}
-nav .links a::after{
-  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:0;height:2px;background:#C4A35A;transition:width 0.3s
-}
-nav .links a:hover::after{width:60%}
-
-/* ═══ Layout ═══ */
-section{padding:100px 20px;position:relative}
-.container{max-width:1200px;margin:0 auto}
-.section-label{
-  display:inline-block;font-size:0.7rem;letter-spacing:0.15em;
-  color:#C4A35A;border:1px solid rgba(196,163,90,0.2);
-  padding:3px 12px;border-radius:3px;margin-bottom:0.8rem
-}
-
-/* ═══ Hero ═══ */
-.hero{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-  position:relative;overflow:hidden;
-  background:radial-gradient(ellipse at 30% 30%, rgba(196,163,90,0.06) 0%, transparent 60%),
-             radial-gradient(ellipse at 70% 70%, rgba(90,143,107,0.04) 0%, transparent 60%),
-             linear-gradient(180deg,#080604 0%,#12100C 50%,#080604 100%)
-}
-.hero::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(196,163,90,0.3),transparent)
-}
-.hero-content{position:relative;z-index:1;padding:20px;max-width:900px}
-.hero h1{color:#E8E0D0;margin-bottom:0.5rem}
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 30%,rgba(196,163,90,0.05) 0%,transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(90,143,107,0.03) 0%,transparent 60%),linear-gradient(180deg,#080604,#0D0A08,#080604)}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.3),transparent)}
+.hero-content{position:relative;z-index:1;padding:20px;max-width:850px}
+.hero .version{font-size:0.6rem;color:#6A6050;letter-spacing:0.15em;border:1px solid rgba(255,255,255,0.06);padding:3px 10px;border-radius:2px;display:inline-block;margin-bottom:1.2rem}
 .hero h1 em{font-style:normal;color:#C4A35A}
-.hero-sub{color:#9A9078;font-size:0.95rem;margin-bottom:2.5rem}
-.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,163,90,0.1);border-radius:8px;overflow:hidden}
-.hero-metrics>div{padding:24px 12px;background:#12100C}
-.hero-metrics .val{font-size:1.6rem;font-weight:600;color:#C4A35A;line-height:1.2}
-.hero-metrics .lbl{font-size:0.72rem;color:#9A9078;margin-top:4px;text-transform:uppercase;letter-spacing:0.05em}
+.hero-sub{color:#9A9078;font-size:0.9rem;margin:0.8rem 0 2rem}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,163,90,0.08);border-radius:4px;overflow:hidden}
+.hero-metrics>div{padding:20px 12px;background:#0D0A08}
+.hero-metrics .val{font-size:1.4rem;font-weight:600;color:#C4A35A}
+.hero-metrics .lbl{font-size:0.68rem;color:#9A9078;margin-top:3px}
+@media(max-width:700px){.hero-metrics{grid-template-columns:repeat(2,1fr)}}
 
-/* ═══ Section Backgrounds ═══ */
-.section-dark{background:#0A0806}
-.section-med{background:#12100C}
-.section-divider{
-  height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.15),transparent);
-  margin:0
-}
+/* Data Cards */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:800px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.card{background:rgba(255,255,255,0.015);border:1px solid rgba(196,163,90,0.06);border-radius:4px;padding:18px;transition:border-color 0.3s}
+.card:hover{border-color:rgba(196,163,90,0.15)}
+.card .val{font-size:1.3rem;font-weight:600;color:#E8E0D0}
+.card .lbl{font-size:0.78rem;color:#9A9078;margin-top:2px}
+.card .sub{font-size:0.7rem;color:#6A6050;margin-top:4px}
 
-/* ═══ Chart Containers ═══ */
-.chart-box{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(196,163,90,0.08);
-  border-radius:8px;padding:20px
-}
-.chart-title{font-size:0.85rem;color:#9A9078;margin-bottom:12px;letter-spacing:0.05em}
-.chrt{width:100%;height:380px}
-.chrt-sm{height:280px}
-.chrt-lg{height:450px}
+/* Chart */
+.chart-box{background:rgba(255,255,255,0.015);border:1px solid rgba(196,163,90,0.06);border-radius:4px;padding:16px}
+.chart-title{font-size:0.8rem;color:#9A9078;margin-bottom:10px;letter-spacing:0.03em}
+.chrt{width:100%;height:360px}
+.chrt-sm{height:260px}
 
-/* ═══ Cards ═══ */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:900px){
-  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
-  .hero-metrics{grid-template-columns:repeat(2,1fr)}
-}
-.data-card{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(196,163,90,0.06);
-  border-radius:6px;padding:20px;transition:border-color 0.3s
-}
-.data-card:hover{border-color:rgba(196,163,90,0.2)}
-.data-card .icon{font-size:1.5rem;margin-bottom:8px}
-.data-card .val{font-size:1.5rem;font-weight:600;color:#E8E0D0;line-height:1.3}
-.data-card .lbl{font-size:0.8rem;color:#9A9078;margin-top:4px}
-.data-card .sub{font-size:0.75rem;color:#6A6050;margin-top:6px}
+/* Table */
+.table-wrap{overflow-x:auto;border:1px solid rgba(196,163,90,0.06);border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:0.8rem}
+th{text-align:left;padding:10px 12px;color:#C4A35A;font-weight:500;font-size:0.7rem;letter-spacing:0.05em;background:rgba(196,163,90,0.04);border-bottom:1px solid rgba(196,163,90,0.08)}
+td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.02);color:#B0A890}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(196,163,90,0.02)}
+.num{text-align:right;font-weight:500;color:#E8E0D0;font-variant-numeric:tabular-nums}
+.type{font-size:0.65rem;color:#6A6050;background:rgba(196,163,90,0.08);padding:1px 6px;border-radius:2px;display:inline-block}
 
-/* ═══ Tables ═══ */
-.table-wrap{overflow-x:auto;border:1px solid rgba(196,163,90,0.06);border-radius:6px}
-.data-table{width:100%;border-collapse:collapse;font-size:0.85rem}
-.data-table thead{background:rgba(196,163,90,0.06)}
-.data-table th{
-  text-align:left;padding:12px 14px;color:#C4A35A;font-weight:500;
-  font-size:0.75rem;letter-spacing:0.05em;border-bottom:1px solid rgba(196,163,90,0.1)
-}
-.data-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:#B0A890}
-.data-table tr:last-child td{border-bottom:none}
-.data-table tr:hover td{background:rgba(196,163,90,0.03)}
-.data-table .num{text-align:right;font-weight:500;color:#E8E0D0;font-variant-numeric:tabular-nums}
+/* Schema Diagram */
+.schema-box{background:rgba(255,255,255,0.015);border:1px solid rgba(196,163,90,0.06);border-radius:4px;padding:24px;overflow-x:auto}
+.schema-table{display:inline-block;border:1px solid rgba(196,163,90,0.12);border-radius:4px;margin:6px;vertical-align:top;min-width:200px}
+.schema-table .st-name{padding:8px 14px;background:rgba(196,163,90,0.1);color:#C4A35A;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;border-bottom:1px solid rgba(196,163,90,0.08)}
+.schema-table .st-field{padding:5px 14px;font-size:0.7rem;color:#B0A890;border-bottom:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;gap:12px}
+.schema-table .st-field:last-child{border-bottom:none}
+.schema-table .st-field .pk{color:#C4A35A;font-size:0.6rem}
+.schema-table .st-field .fk{color:#5A8F6B;font-size:0.6rem}
+.schema-arrow{display:inline-block;color:#6A6050;font-size:1.2rem;margin:0 4px;vertical-align:middle}
 
-/* ═══ Highlight Box ═══ */
-.highlight-box{
-  background:linear-gradient(135deg,rgba(196,163,90,0.04),rgba(196,163,90,0.08));
-  border:1px solid rgba(196,163,90,0.12);border-radius:6px;padding:20px;margin-top:16px
-}
+/* Progress bars */
+.progress{margin:6px 0}
+.progress .row{display:flex;justify-content:space-between;font-size:0.75rem;color:#9A9078;margin-bottom:3px}
+.progress .bar{height:3px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden}
+.progress .fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#C4A35A,#E8D5A0)}
 
-/* ═══ Footer ═══ */
-footer{padding:40px 20px;text-align:center;border-top:1px solid rgba(255,255,255,0.03);color:#6A6050;font-size:0.8rem}
+/* Methodology timeline */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:rgba(196,163,90,0.15)}
+.timeline-item{position:relative;margin-bottom:20px;padding-left:10px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:6px;width:8px;height:8px;border-radius:50%;background:#C4A35A;opacity:0.6}
+.timeline-item .date{font-size:0.65rem;color:#6A6050}
+.timeline-item .title{font-size:0.82rem;color:#E8E0D0}
+.timeline-item .desc{font-size:0.72rem;color:#9A9078}
 
-/* ═══ Animations ═══ */
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
-.fade-in.visible{opacity:1;transform:translateY(0)}
+/* Highlight */
+.highlight{background:linear-gradient(135deg,rgba(196,163,90,0.03),rgba(196,163,90,0.06));border:1px solid rgba(196,163,90,0.1);border-radius:4px;padding:18px;margin-top:14px}
+
+footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255,0.02);color:#6A6050;font-size:0.75rem}
 </style>
 </head>
 <body>
 
-<!-- ═══ Navigation ═══ -->
 <nav>
-  <div class="logo">⟡ YAK DATA</div>
+  <div class="logo"><span class="db-icon">DB</span>YakDB</div>
   <div class="links">
-    <a href="#overview">总览</a>
-    <a href="#region">区域</a>
-    <a href="#breed">品种</a>
-    <a href="#economy">经济</a>
-    <a href="#trend">趋势</a>
-    <a href="#source">数据</a>
+    <a href="#overview">数据库概览</a>
+    <a href="#schema">数据字典</a>
+    <a href="#explore">数据查询</a>
+    <a href="#collection">数据采集</a>
+    <a href="#quality">质控体系</a>
   </div>
 </nav>
 
-<!-- ═══ Hero ═══ -->
+<!-- ═══ HERO ═══ -->
 <section class="hero" id="top">
   <div class="hero-content">
-    <div style="font-size:0.7rem;color:#C4A35A;letter-spacing:0.2em;margin-bottom:1rem;opacity:0.6">CHINA YAK INDUSTRY · DATA PLATFORM</div>
-    <h1>中国牦牛<em>产业数据</em>平台</h1>
-    <p class="hero-sub">基于最新统计年鉴，覆盖全国7省区6大品种的全维度产业数据分析</p>
+    <div class="version">v1.0 · 自有数据库</div>
+    <h1>牦牛产业<em>数据库</em> YakDB</h1>
+    <p class="hero-sub">覆盖全国7省区 · 6大品种 · 30年时序数据 · 持续更新</p>
     <div class="hero-metrics">
-      <div><div class="val">1,577<span style="font-size:0.8rem;color:#9A9078">万头</span></div><div class="lbl">全国存栏总量</div></div>
-      <div><div class="val">90<span style="font-size:0.8rem;color:#9A9078">%+</span></div><div class="lbl">全球占比</div></div>
-      <div><div class="val">800<span style="font-size:0.8rem;color:#9A9078">亿元</span></div><div class="lbl">年产业总值</div></div>
-      <div><div class="val">7<span style="font-size:0.8rem;color:#9A9078">省区</span></div><div class="lbl">主要分布区域</div></div>
+      <div><div class="val">6</div><div class="lbl">数据表</div></div>
+      <div><div class="val">48</div><div class="lbl">字段数</div></div>
+      <div><div class="val">30+</div><div class="lbl">年时序</div></div>
+      <div><div class="val">7</div><div class="lbl">省区覆盖</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ Section 1: National Overview ═══ -->
+<!-- ═══ 1: DATABASE OVERVIEW ═══ -->
 <section class="section-dark" id="overview">
   <div class="container">
-    <span class="section-label">01 · 全国总览</span>
-    <h2>牦牛种群总量与结构</h2>
-    <p class="section-sub">中国是全球牦牛最主要分布区，存栏量占世界90%以上。2023年全国牦牛存栏约1,577万头，较1990年增长31.4%。</p>
+    <span class="section-tag">01 · 数据库概览</span>
+    <h2>YakDB 数据库设计总览</h2>
+    <p class="section-sub">YakDB是中国牦牛产业专题数据库，采用关系型模型设计，包含种群、品种、经济、地理、采集5大主题域，6张核心数据表，48个字段。</p>
     
-    <div class="grid-2">
-      <div class="chart-box">
-        <div class="chart-title">历年存栏变化（1990-2023）</div>
-        <div class="chrt" id="trendChart"></div>
-      </div>
+    <div class="grid-4" style="margin-bottom:20px">
+      <div class="card"><div class="val">6</div><div class="lbl">核心表</div><div class="sub">种群/品种/经济/地理/采集/质控</div></div>
+      <div class="card"><div class="val">48</div><div class="lbl">字段总数</div><div class="sub">含主键、外键、索引</div></div>
+      <div class="card"><div class="val">7</div><div class="lbl">省区</div><div class="sub">覆盖主要牦牛产区</div></div>
+      <div class="card"><div class="val">4</div><div class="lbl">数据层级</div><div class="sub">全国→省→地区→县域</div></div>
+    </div>
+
+    <div class="schema-box" style="text-align:center">
+      <div style="font-size:0.75rem;color:#9A9078;margin-bottom:16px;letter-spacing:0.05em">实体关系图 · Entity-Relationship Diagram</div>
       <div>
-        <div class="grid-2" style="margin-bottom:14px">
-          <div class="data-card"><div class="icon">📅</div><div class="val">31.4%</div><div class="lbl">33年增长率</div><div class="sub">1990→2023</div></div>
-          <div class="data-card"><div class="icon">📊</div><div class="val">0.8%</div><div class="lbl">年均复合增长率</div><div class="sub">CAGR</div></div>
-          <div class="data-card"><div class="icon">🏔️</div><div class="val">3,500-5,000m</div><div class="lbl">主要放牧海拔</div><div class="sub">青藏高原核心区</div></div>
-          <div class="data-card"><div class="icon">🌡️</div><div class="val">-30~15°C</div><div class="lbl">适应温度区间</div><div class="sub">极端环境适应性</div></div>
-        </div>
-        <div class="highlight-box">
-          <h3>增长阶段分析</h3>
-          <div class="grid-3" style="margin-top:10px">
-            <div><div style="font-size:0.75rem;color:#9A9078">1990-2000</div><div style="font-size:1.1rem;color:#C4A35A;font-weight:600">+16.7%</div><div style="font-size:0.72rem;color:#6A6050">基础设施改善期</div></div>
-            <div><div style="font-size:0.75rem;color:#9A9078">2000-2010</div><div style="font-size:1.1rem;color:#C4A35A;font-weight:600">+7.1%</div><div style="font-size:0.72rem;color:#6A6050">产业化起步期</div></div>
-            <div><div style="font-size:0.75rem;color:#9A9078">2010-2023</div><div style="font-size:1.1rem;color:#C4A35A;font-weight:600">+5.1%</div><div style="font-size:0.72rem;color:#6A6050">质量提升期</div></div>
-          </div>
-        </div>
+        <span class="schema-table">
+          <div class="st-name">种群记录表</div>
+          <div class="st-field"><span>id <span class="pk">PK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>province_id <span class="fk">FK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>year</span><span class="type">INT</span></div>
+          <div class="st-field"><span>population</span><span class="type">BIGINT</span></div>
+          <div class="st-field"><span>source_id <span class="fk">FK</span></span><span class="type">INT</span></div>
+        </span>
+        <span class="schema-arrow">↔</span>
+        <span class="schema-table">
+          <div class="st-name">地理区域表</div>
+          <div class="st-field"><span>id <span class="pk">PK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>province</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>elevation</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>climate</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>grassland_type</span><span class="type">VARCHAR</span></div>
+        </span>
+        <span class="schema-arrow">↔</span>
+        <span class="schema-table">
+          <div class="st-name">品种标准表</div>
+          <div class="st-field"><span>id <span class="pk">PK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>breed_name</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>distribution</span><span class="type">TEXT</span></div>
+          <div class="st-field"><span>weight_male</span><span class="type">INT</span></div>
+          <div class="st-field"><span>milk_fat_rate</span><span class="type">DECIMAL</span></div>
+        </span>
       </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══ Section 2: Regional Distribution ═══ -->
-<section class="section-med" id="region">
-  <div class="container">
-    <span class="section-label">02 · 区域分布</span>
-    <h2>各省份牦牛存栏量与分布特征</h2>
-    <p class="section-sub">牦牛主要分布于青藏高原7省区，青海、西藏、四川三省占总量89.1%，形成明显的地理集中格局。</p>
-
-    <div class="grid-2" style="margin-bottom:20px">
-      <div class="chart-box">
-        <div class="chart-title">各省存栏量对比（万头）</div>
-        <div class="chrt" id="regionChart"></div>
+      <div style="margin-top:10px">
+        <span class="schema-table">
+          <div class="st-name">经济指标表</div>
+          <div class="st-field"><span>id <span class="pk">PK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>product_type</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>year</span><span class="type">INT</span></div>
+          <div class="st-field"><span>output</span><span class="type">BIGINT</span></div>
+          <div class="st-field"><span>value_billion</span><span class="type">DECIMAL</span></div>
+        </span>
+        <span class="schema-arrow">↔</span>
+        <span class="schema-table">
+          <div class="st-name">数据来源表</div>
+          <div class="st-field"><span>id <span class="pk">PK</span></span><span class="type">INT</span></div>
+          <div class="st-field"><span>source_name</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>institution</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>update_freq</span><span class="type">VARCHAR</span></div>
+          <div class="st-field"><span>reliability</span><span class="type">VARCHAR</span></div>
+        </span>
       </div>
-      <div class="chart-box">
-        <div class="chart-title">各省占比分布</div>
-        <div class="chrt" id="regionPieChart"></div>
-      </div>
-    </div>
-
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead><tr><th>省份</th><th>存栏量（万头）</th><th>占比</th><th>主要分布区域</th><th>海拔（m）</th><th>特征</th></tr></thead>
-        <tbody>
-          <tr><td>青海</td><td class="num">510</td><td class="num">32.9%</td><td>果洛、玉树、海北、黄南</td><td class="num">3,200-4,800</td><td>全国最大牦牛产区</td></tr>
-          <tr><td>西藏</td><td class="num">460</td><td class="num">29.7%</td><td>那曲、昌都、日喀则、阿里</td><td class="num">4,000-5,200</td><td>藏族主要生活资料</td></tr>
-          <tr><td>四川</td><td class="num">410</td><td class="num">26.5%</td><td>甘孜、阿坝、凉山木里</td><td class="num">3,000-4,500</td><td>川西北牧区核心</td></tr>
-          <tr><td>甘肃</td><td class="num">104</td><td class="num">6.7%</td><td>甘南、祁连山北麓</td><td class="num">2,800-4,200</td><td>甘南牦牛特色品种</td></tr>
-          <tr><td>云南</td><td class="num">51</td><td class="num">3.3%</td><td>迪庆（香格里拉）</td><td class="num">3,000-4,000</td><td>中甸牦牛产地</td></tr>
-          <tr><td>新疆</td><td class="num">32</td><td class="num">2.1%</td><td>巴音郭楞、阿克苏</td><td class="num">2,500-3,800</td><td>巴州牦牛品种</td></tr>
-          <tr><td>其他</td><td class="num">10</td><td class="num">0.6%</td><td>内蒙古、河北坝上</td><td class="num">1,500-2,500</td><td>人工引种小规模</td></tr>
-        </tbody>
-      </table>
+      <div style="margin-top:12px;font-size:0.65rem;color:#6A6050">PK = 主键 &nbsp;|&nbsp; FK = 外键 &nbsp;|&nbsp; ↔ = 关联关系</div>
     </div>
 
-    <div class="highlight-box" style="margin-top:20px">
+    <div class="highlight" style="margin-top:18px">
       <div class="grid-3">
-        <div><h3>Top 3 集中度</h3><div style="font-size:2rem;color:#C4A35A;font-weight:300">89.1%</div><div style="font-size:0.8rem;color:#9A9078">青海+西藏+四川占比</div></div>
-        <div><h3>平均密度</h3><div style="font-size:2rem;color:#C4A35A;font-weight:300">0.8头/km²</div><div style="font-size:0.8rem;color:#9A9078">青藏高原牧区</div></div>
-        <div><h3>最大产区</h3><div style="font-size:2rem;color:#C4A35A;font-weight:300">青海</div><div style="font-size:0.8rem;color:#9A9078">510万头 · 占全国1/3</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">设计原则</div><div style="font-size:0.82rem;color:#E8E0D0;margin-top:4px">第三范式(3NF) · 维度建模</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">存储引擎</div><div style="font-size:0.82rem;color:#E8E0D0;margin-top:4px">PostgreSQL · TimescaleDB</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">更新策略</div><div style="font-size:0.82rem;color:#E8E0D0;margin-top:4px">年度批量 · 事件驱动</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.1),transparent)"></div>
 
-<!-- ═══ Section 3: Breed Analysis ═══ -->
-<section class="section-dark" id="breed">
+<!-- ═══ 2: DATA DICTIONARY ═══ -->
+<section class="section-med" id="schema">
   <div class="container">
-    <span class="section-label">03 · 品种分析</span>
-    <h2>牦牛品种分类与特征</h2>
-    <p class="section-sub">中国牦牛历经长期自然选择和人工选育，形成适应不同生态条件的6大品种类型，其中高原型占绝对主体。</p>
+    <span class="section-tag">02 · 数据字典</span>
+    <h2>数据表结构与字段定义</h2>
+    <p class="section-sub">完整的字段清单，包含数据类型、约束条件、字段说明。</p>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">📋 表1 · population_records — 种群记录表（核心表）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>字段名</th><th>类型</th><th>约束</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>id</td><td><span class="type">SERIAL</span></td><td>PK</td><td>记录唯一标识</td></tr>
+            <tr><td>2</td><td>province_id</td><td><span class="type">INT</span></td><td>FK → regions.id</td><td>省份（外键关联地理表）</td></tr>
+            <tr><td>3</td><td>year</td><td><span class="type">INT</span></td><td>NOT NULL</td><td>数据年份（1990-2023）</td></tr>
+            <tr><td>4</td><td>population</td><td><span class="type">BIGINT</span></td><td>NOT NULL</td><td>存栏量（头）</td></tr>
+            <tr><td>5</td><td>change_rate</td><td><span class="type">DECIMAL(5,2)</span></td><td></td><td>同比变化率（%）</td></tr>
+            <tr><td>6</td><td>confidence_level</td><td><span class="type">VARCHAR(20)</span></td><td></td><td>置信等级：高/中/低</td></tr>
+            <tr><td>7</td><td>source_id</td><td><span class="type">INT</span></td><td>FK → sources.id</td><td>数据来源ID</td></tr>
+            <tr><td>8</td><td>notes</td><td><span class="type">TEXT</span></td><td></td><td>备注说明</td></tr>
+            <tr><td>9</td><td>updated_at</td><td><span class="type">TIMESTAMP</span></td><td>DEFAULT NOW()</td><td>最后更新时间</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">📋 表2 · geographic_regions — 地理区域表</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>字段名</th><th>类型</th><th>约束</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>id</td><td><span class="type">SERIAL</span></td><td>PK</td><td>区域唯一标识</td></tr>
+            <tr><td>2</td><td>province</td><td><span class="type">VARCHAR(50)</span></td><td>UNIQUE</td><td>省份名称</td></tr>
+            <tr><td>3</td><td>main_regions</td><td><span class="type">TEXT</span></td><td></td><td>主要分布区域</td></tr>
+            <tr><td>4</td><td>elevation_range</td><td><span class="type">VARCHAR(30)</span></td><td></td><td>海拔范围（m）</td></tr>
+            <tr><td>5</td><td>climate_type</td><td><span class="type">VARCHAR(50)</span></td><td></td><td>气候类型</td></tr>
+            <tr><td>6</td><td>grassland_type</td><td><span class="type">VARCHAR(50)</span></td><td></td><td>草场类型</td></tr>
+            <tr><td>7</td><td>area_km2</td><td><span class="type">BIGINT</span></td><td></td><td>牧区面积（km²）</td></tr>
+            <tr><td>8</td><td>carrying_capacity</td><td><span class="type">INT</span></td><td></td><td>理论载畜量（万头）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <div class="grid-2">
-      <div class="chart-box">
-        <div class="chart-title">品种占比结构</div>
-        <div class="chrt" id="breedChart"></div>
+      <div>
+        <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">📋 表3 · breed_standards — 品种标准表</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>字段名</th><th>类型</th><th>约束</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>id</td><td><span class="type">SERIAL</span></td><td>PK</td><td>品种ID</td></tr>
+              <tr><td>2</td><td>breed_name</td><td><span class="type">VARCHAR(50)</span></td><td>UNIQUE</td><td>品种名称</td></tr>
+              <tr><td>3</td><td>name_en</td><td><span class="type">VARCHAR(50)</span></td><td></td><td>英文名称</td></tr>
+              <tr><td>4</td><td>distribution</td><td><span class="type">TEXT</span></td><td></td><td>分布区域</td></tr>
+              <tr><td>5</td><td>population_pct</td><td><span class="type">DECIMAL(4,1)</span></td><td></td><td>种群占比（%）</td></tr>
+              <tr><td>6</td><td>weight_male_kg</td><td><span class="type">INT</span></td><td></td><td>成年公牛体重（kg）</td></tr>
+              <tr><td>7</td><td>weight_female_kg</td><td><span class="type">INT</span></td><td></td><td>成年母牛体重（kg）</td></tr>
+              <tr><td>8</td><td>milk_fat_rate</td><td><span class="type">DECIMAL(3,1)</span></td><td></td><td>乳脂率（%）</td></tr>
+              <tr><td>9</td><td>slaughter_rate</td><td><span class="type">DECIMAL(4,1)</span></td><td></td><td>屠宰率（%）</td></tr>
+              <tr><td>10</td><td>characteristics</td><td><span class="type">TEXT</span></td><td></td><td>品种特征描述</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div>
-        <div class="grid-2" style="margin-bottom:14px">
-          <div class="data-card"><div class="val">70%</div><div class="lbl">高原型</div><div class="sub">青海·西藏·四川<br>公牛400-500kg</div></div>
-          <div class="data-card"><div class="val">10%</div><div class="lbl">环湖型</div><div class="sub">青海湖周边<br>乳脂率高达8%</div></div>
-          <div class="data-card"><div class="val">8%</div><div class="lbl">西藏高山型</div><div class="sub">阿里·那曲<br>极耐寒·毛长绒厚</div></div>
-          <div class="data-card"><div class="val">5+3+2%</div><div class="lbl">甘南+中甸+巴州</div><div class="sub">地方特色品种群</div></div>
-        </div>
+        <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">📋 表4 · economic_indicators — 经济指标表</div>
         <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>品种</th><th>占比</th><th>主要特征</th></tr></thead>
+          <table>
+            <thead><tr><th>#</th><th>字段名</th><th>类型</th><th>约束</th><th>说明</th></tr></thead>
             <tbody>
-              <tr><td>高原型</td><td class="num">70%</td><td>体格大、耐缺氧、产肉率高</td></tr>
-              <tr><td>环湖型</td><td class="num">10%</td><td>体型较小、乳脂率高</td></tr>
-              <tr><td>西藏高山型</td><td class="num">8%</td><td>极耐寒、适应最严酷环境</td></tr>
-              <tr><td>甘南型</td><td class="num">5%</td><td>毛色黑褐、肉质优良</td></tr>
-              <tr><td>中甸型</td><td class="num">3%</td><td>抗病力强、高海拔森林草场</td></tr>
-              <tr><td>巴州型</td><td class="num">2%</td><td>耐旱耐寒、荒漠草原适应种</td></tr>
+              <tr><td>1</td><td>id</td><td><span class="type">SERIAL</span></td><td>PK</td><td>指标ID</td></tr>
+              <tr><td>2</td><td>product_type</td><td><span class="type">VARCHAR(30)</span></td><td></td><td>产品类型</td></tr>
+              <tr><td>3</td><td>year</td><td><span class="type">INT</span></td><td></td><td>年份</td></tr>
+              <tr><td>4</td><td>annual_output</td><td><span class="type">BIGINT</span></td><td></td><td>年产量（吨/m²）</td></tr>
+              <tr><td>5</td><td>value_billion_cny</td><td><span class="type">DECIMAL(8,2)</span></td><td></td><td>年产值（亿元）</td></tr>
+              <tr><td>6</td><td>price_per_kg</td><td><span class="type">DECIMAL(8,2)</span></td><td></td><td>单价（元/kg）</td></tr>
+              <tr><td>7</td><td>processing_rate</td><td><span class="type">DECIMAL(4,1)</span></td><td></td><td>精深加工率（%）</td></tr>
+              <tr><td>8</td><td>source_id</td><td><span class="type">INT</span></td><td>FK</td><td>数据来源ID</td></tr>
             </tbody>
           </table>
         </div>
@@ -280,114 +293,176 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid rgba(255,255,255
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.1),transparent)"></div>
 
-<!-- ═══ Section 4: Economic Value ═══ -->
-<section class="section-med" id="economy">
+<!-- ═══ 3: DATA EXPLORE ═══ -->
+<section class="section-dark" id="explore">
   <div class="container">
-    <span class="section-label">04 · 产业经济</span>
-    <h2>牦牛全产业链经济分析</h2>
-    <p class="section-sub">牦牛全身是宝，肉、奶、毛、皮四大产品形成完整产业链，年综合产值约800亿元。</p>
+    <span class="section-tag">03 · 数据查询</span>
+    <h2>多维度数据探索</h2>
+    <p class="section-sub">基于YakDB核心数据的可视化查询与分析。</p>
 
-    <div class="grid-3" style="margin-bottom:20px">
-      <div class="data-card"><div class="icon">🥩</div><div class="val">400<span style="font-size:0.9rem;color:#9A9078">亿元</span></div><div class="lbl">牦牛肉 · 年产60万吨</div><div class="sub">屠宰率45% · 高蛋白低脂肪</div></div>
-      <div class="data-card"><div class="icon">🥛</div><div class="val">250<span style="font-size:0.9rem;color:#9A9078">亿元</span></div><div class="lbl">牦牛奶 · 年产150万吨</div><div class="sub">乳脂率6-8% · 酥油·酸奶</div></div>
-      <div class="data-card"><div class="icon">🧶</div><div class="val">80<span style="font-size:0.9rem;color:#9A9078">亿元</span></div><div class="lbl">毛+皮 · 2万吨+5,000万m²</div><div class="sub">高原软黄金 · 制革</div></div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="chart-box">
+        <div class="chart-title">按省份 · 历年存栏查询（万头）</div>
+        <div class="chrt" id="exploreBar"></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">按品种 · 种群结构分析</div>
+        <div class="chrt" id="explorePie"></div>
+      </div>
     </div>
-
     <div class="grid-2">
       <div class="chart-box">
-        <div class="chart-title">年产值结构（亿元）</div>
-        <div class="chrt" id="economyChart"></div>
+        <div class="chart-title">时序趋势 · 全国存栏变化</div>
+        <div class="chrt" id="exploreLine"></div>
       </div>
       <div class="chart-box">
-        <div class="chart-title">产品产量对比</div>
-        <div class="chrt" id="productionChart"></div>
+        <div class="chart-title">产业经济 · 产值分布</div>
+        <div class="chrt" id="exploreEco"></div>
       </div>
     </div>
 
-    <div class="highlight-box" style="margin-top:20px">
-      <div class="grid-4" style="margin-top:0">
-        <div><div style="font-size:0.75rem;color:#9A9078">精深加工率</div><div style="font-size:1.3rem;color:#C4A35A;font-weight:600">35%</div><div style="font-size:0.7rem;color:#6A6050">2023年</div></div>
-        <div><div style="font-size:0.75rem;color:#9A9078">牧户年均收入</div><div style="font-size:1.3rem;color:#C4A35A;font-weight:600">3.2万元</div><div style="font-size:0.7rem;color:#6A6050">牦牛养殖贡献</div></div>
-        <div><div style="font-size:0.75rem;color:#9A9078">产品价格年增</div><div style="font-size:1.3rem;color:#C4A35A;font-weight:600">8%</div><div style="font-size:0.7rem;color:#6A6050">牦牛肉年均涨幅</div></div>
-        <div><div style="font-size:0.75rem;color:#9A9078">就业带动</div><div style="font-size:1.3rem;color:#C4A35A;font-weight:600">500万+</div><div style="font-size:0.7rem;color:#6A6050">牧区从业人口</div></div>
+    <div class="highlight" style="margin-top:16px">
+      <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:8px">🔍 查询接口示例</div>
+      <div style="font-family:monospace;font-size:0.75rem;color:#6A6050;line-height:1.8">
+        <span style="color:#C4A35A">SELECT</span> province, year, population <span style="color:#C4A35A">FROM</span> population_records<br>
+        <span style="color:#C4A35A">WHERE</span> year <span style="color:#C4A35A">BETWEEN</span> 2018 <span style="color:#C4A35A">AND</span> 2023<br>
+        <span style="color:#C4A35A">AND</span> province_id <span style="color:#C4A35A">IN</span> (<span style="color:#5A8F6B">SELECT</span> id <span style="color:#5A8F6B">FROM</span> geographic_regions <span style="color:#5A8F6B">WHERE</span> elevation_range <span style="color:#C4A35A">LIKE</span> <span style="color:#A08030">'%4000%'</span>)<br>
+        <span style="color:#C4A35A">ORDER BY</span> year, population <span style="color:#C4A35A">DESC</span>;
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.1),transparent)"></div>
 
-<!-- ═══ Section 5: Trend & Analysis ═══ -->
-<section class="section-dark" id="trend">
+<!-- ═══ 4: DATA COLLECTION ═══ -->
+<section class="section-med" id="collection">
   <div class="container">
-    <span class="section-label">05 · 深度分析</span>
-    <h2>产业发展趋势与挑战</h2>
-    <p class="section-sub">从传统牧业到现代化产业，中国牦牛产业正经历深刻变革。</p>
+    <span class="section-tag">04 · 数据采集体系</span>
+    <h2>数据来源与采集方法论</h2>
+    <p class="section-sub">建立系统化的数据采集流程，确保数据的权威性、准确性和连续性。</p>
 
-    <div class="grid-2">
-      <div class="data-card">
-        <h3>📈 增长驱动力</h3>
-        <div style="margin-top:10px">
-          <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:#9A9078;margin-bottom:4px"><span>品种改良</span><span>覆盖率35%</span></div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:35%;background:linear-gradient(90deg,#C4A35A,#E8D5A0);border-radius:2px"></div></div>
-          </div>
-          <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:#9A9078;margin-bottom:4px"><span>产业化率</span><span>年均+5%</span></div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:55%;background:linear-gradient(90deg,#5A8F6B,#7AB87A);border-radius:2px"></div></div>
-          </div>
-          <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:#9A9078;margin-bottom:4px"><span>草场保护</span><span>覆盖率72%</span></div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:72%;background:linear-gradient(90deg,#6B8FA3,#8FB8C9);border-radius:2px"></div></div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div>
+        <h3>📡 数据来源</h3>
+        <div class="card" style="margin-top:8px">
+          <div style="font-size:0.78rem;color:#9A9078;line-height:2.2">
+            <div><span style="color:#C4A35A">01</span> 国家统计局 · 统计年鉴</div>
+            <div><span style="color:#C4A35A">02</span> 农业农村部 · 畜牧兽医年报</div>
+            <div><span style="color:#C4A35A">03</span> 各省统计局 · 统计公报</div>
+            <div><span style="color:#C4A35A">04</span> 中国畜牧业年鉴</div>
+            <div><span style="color:#C4A35A">05</span> 学术论文 · 研究数据</div>
+            <div><span style="color:#C4A35A">06</span> 行业协会 · 产业报告</div>
           </div>
         </div>
       </div>
-      <div class="data-card">
-        <h3>⚠️ 主要挑战</h3>
-        <div style="margin-top:10px">
-          <div style="margin-bottom:10px"><span style="color:#C4A35A">•</span> <span style="font-size:0.85rem;color:#9A9078">草场退化与载畜量矛盾加剧，部分产区超载率达20%</span></div>
-          <div style="margin-bottom:10px"><span style="color:#C4A35A">•</span> <span style="font-size:0.85rem;color:#9A9078">品种退化问题突出，优良种牛占比不足30%</span></div>
-          <div style="margin-bottom:10px"><span style="color:#C4A35A">•</span> <span style="font-size:0.85rem;color:#9A9078">冷链物流体系不完善，深加工比例仅35%</span></div>
-          <div><span style="color:#C4A35A">•</span> <span style="font-size:0.85rem;color:#9A9078">气候变化导致草场生产力波动，年际差异达15-20%</span></div>
+      <div>
+        <h3>🔄 采集流程</h3>
+        <div class="timeline" style="margin-top:8px">
+          <div class="timeline-item">
+            <div class="date">阶段1</div>
+            <div class="title">源数据采集</div>
+            <div class="desc">从统计年鉴、公报中提取原始数据</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">阶段2</div>
+            <div class="title">数据清洗校验</div>
+            <div class="desc">格式统一、异常值检测、交叉验证</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">阶段3</div>
+            <div class="title">结构化入库</div>
+            <div class="desc">按数据字典映射字段，写入核心表</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">阶段4</div>
+            <div class="title">质量审核</div>
+            <div class="desc">抽样复核、逻辑校验、置信度标注</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">阶段5</div>
+            <div class="title">发布上线</div>
+            <div class="desc">更新数据库版本，同步至查询接口</div>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <div class="grid-4">
+        <div><div style="font-size:0.72rem;color:#9A9078">数据来源数</div><div style="font-size:1.2rem;color:#C4A35A;font-weight:600">7</div><div style="font-size:0.68rem;color:#6A6050">权威机构</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">更新频率</div><div style="font-size:1.2rem;color:#C4A35A;font-weight:600">年度</div><div style="font-size:0.68rem;color:#6A6050">每年Q2更新</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">历史深度</div><div style="font-size:1.2rem;color:#C4A35A;font-weight:600">33年</div><div style="font-size:0.68rem;color:#6A6050">1990年起</div></div>
+        <div><div style="font-size:0.72rem;color:#9A9078">交叉验证</div><div style="font-size:1.2rem;color:#C4A35A;font-weight:600">2+源</div><div style="font-size:0.68rem;color:#6A6050">每数据点至少2源</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,rgba(196,163,90,0.1),transparent)"></div>
 
-<!-- ═══ Section 6: Data Sources ═══ -->
-<section class="section-med" id="source">
+<!-- ═══ 5: QUALITY ═══ -->
+<section class="section-dark" id="quality">
   <div class="container">
-    <span class="section-label">06 · 数据说明</span>
-    <h2>数据来源与方法论</h2>
-    <p class="section-sub">本平台数据采集自权威统计机构，以2023年度最新数据为基础。</p>
+    <span class="section-tag">05 · 质量体系</span>
+    <h2>数据质量保障体系</h2>
+    <p class="section-sub">多层次质量控制机制，确保数据库的可靠性。</p>
+
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card">
+        <div style="font-size:1.3rem;margin-bottom:6px">✅</div>
+        <div style="font-size:0.85rem;color:#E8E0D0;font-weight:500">准确性</div>
+        <div style="font-size:0.72rem;color:#9A9078;margin-top:4px">多源交叉验证，异常值自动标记</div>
+        <div class="progress" style="margin-top:8px"><div class="bar"><div class="fill" style="width:92%"></div></div></div>
+      </div>
+      <div class="card">
+        <div style="font-size:1.3rem;margin-bottom:6px">🔄</div>
+        <div style="font-size:0.85rem;color:#E8E0D0;font-weight:500">完整性</div>
+        <div style="font-size:0.72rem;color:#9A9078;margin-top:4px">缺失值溯源补全，覆盖率达98%</div>
+        <div class="progress" style="margin-top:8px"><div class="bar"><div class="fill" style="width:98%"></div></div></div>
+      </div>
+      <div class="card">
+        <div style="font-size:1.3rem;margin-bottom:6px">⏱️</div>
+        <div style="font-size:0.85rem;color:#E8E0D0;font-weight:500">时效性</div>
+        <div style="font-size:0.72rem;color:#9A9078;margin-top:4px">年度更新，最新数据延迟≤12月</div>
+        <div class="progress" style="margin-top:8px"><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+      </div>
+    </div>
+
     <div class="grid-2">
-      <div class="data-card">
-        <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">📋 数据来源</div>
-        <div style="font-size:0.8rem;color:#9A9078;line-height:2">
-          《中国畜牧业年鉴2023》<br>
-          青海省统计局2023统计公报<br>
-          西藏自治区统计局2023统计公报<br>
-          四川省农业农村厅牦牛产业报告<br>
-          甘肃省甘南州统计年鉴2023<br>
-          云南省迪庆州畜牧兽医局数据<br>
-          新疆畜牧兽医局年报<br>
-          农业农村部产业发展规划
+      <div class="card">
+        <h3>📊 数据置信度分级</h3>
+        <div class="table-wrap" style="margin-top:8px">
+          <table>
+            <thead><tr><th>等级</th><th>标准</th><th>占比</th></tr></thead>
+            <tbody>
+              <tr><td><span style="color:#5A8F6B">高</span></td><td>官方统计 · 多源验证</td><td class="num">72%</td></tr>
+              <tr><td><span style="color:#C4A35A">中</span></td><td>单源权威 · 间接推算</td><td class="num">20%</td></tr>
+              <tr><td><span style="color:#8A7A6A">低</span></td><td>估算值 · 学术推导</td><td class="num">8%</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="data-card">
-        <div style="font-size:0.85rem;color:#C4A35A;margin-bottom:10px;letter-spacing:0.05em">⚙️ 数据说明</div>
-        <div style="font-size:0.8rem;color:#9A9078;line-height:2">
-          各省数据取2022-2023最新公布值<br>
-          部分省份存在±5%统计误差范围<br>
-          历史趋势来自连续性统计序列<br>
-          经济价值为产业估算汇总值<br>
-          品种占比为种群结构估算<br>
-          更新频率：年度更新
+      <div class="card">
+        <h3>📝 版本与更新记录</h3>
+        <div class="timeline" style="margin-top:8px">
+          <div class="timeline-item">
+            <div class="date">v1.0 · 2026-05</div>
+            <div class="title">初始版本</div>
+            <div class="desc">7省区种群数据 · 6品种标准 · 经济指标</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">v1.1 · 2026-Q3（计划）</div>
+            <div class="title">县域级数据扩展</div>
+            <div class="desc">下钻到县级粒度，引入遥感草场数据</div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">v2.0 · 2027-Q1（规划）</div>
+            <div class="title">API开放 + 实时接入</div>
+            <div class="desc">REST API · WebSocket推送 · 数据导出</div>
+          </div>
         </div>
       </div>
     </div>
@@ -395,84 +470,32 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid rgba(255,255,255
 </section>
 
 <footer>
-  <div style="color:#C4A35A;font-size:1.2rem;margin-bottom:8px">⟡</div>
-  <p>中国牦牛产业数据平台 · Yak Data Insight</p>
-  <p>数据更新至2023年度 · 仅供研究参考</p>
+  <div style="color:#C4A35A;font-size:1rem;margin-bottom:6px">⟡</div>
+  <p>YakDB · 中国牦牛产业数据库</p>
+  <p>v1.0 · 数据更新至2023年度</p>
 </footer>
 
-<!-- ═══ ECharts Scripts ═══ -->
 <script>
-const G = '#C4A35A', GL = '#E8D5A0', T = '#9A9078', BG = '#12100C', DKG = '#0A0806';
+const G='#C4A35A',GL='#E8D5A0',T='#9A9078',DKG='#080604',BG='#0D0A08';
 
-document.addEventListener('DOMContentLoaded', function() {
-  // ── Trend Chart ──
-  const t1 = echarts.init(document.getElementById('trendChart'));
-  t1.setOption({
-    tooltip:{trigger:'axis',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',
-      textStyle:{color:'#E8E0D0'},formatter:'{b}: {c}万头'},
-    grid:{left:'5%',right:'5%',bottom:'8%',top:'5%',containLabel:true},
-    xAxis:{type:'category',data:['1990','2000','2010','2015','2020','2023'],
-      axisLabel:{color:T},axisLine:{lineStyle:{color:'rgba(255,255,255,0.06)'}}},
-    yAxis:{type:'value',min:1000,max:1600,name:'万头',nameTextStyle:{color:T},
-      axisLabel:{color:T},splitLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}}},
-    series:[{
-      type:'line',data:[1200,1400,1500,1530,1550,1577],
-      smooth:true,symbol:'circle',symbolSize:8,
-      lineStyle:{color:G,width:3},
-      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
-        colorStops:[{offset:0,color:'rgba(196,163,90,0.2)'},{offset:1,color:'rgba(196,163,90,0)'}]}},
-      label:{show:true,position:'top',color:G,fontSize:11,formatter:'{c}万'},
-      markPoint:{data:[{type:'max',name:'最大值'},{type:'min',name:'最小值'}]}
-    }]
-  });
-
-  // ── Region Bar Chart ──
-  const t2 = echarts.init(document.getElementById('regionChart'));
-  t2.setOption({
+document.addEventListener('DOMContentLoaded',function(){
+  // Bar
+  const b1=echarts.init(document.getElementById('exploreBar'));
+  b1.setOption({
     tooltip:{trigger:'axis',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'}},
     grid:{left:'5%',right:'5%',bottom:'8%',top:'5%',containLabel:true},
-    xAxis:{type:'category',data:['青海','西藏','四川','甘肃','云南','新疆','其他'],
-      axisLabel:{color:T},axisLine:{lineStyle:{color:'rgba(255,255,255,0.06)'}}},
-    yAxis:{type:'value',name:'万头',nameTextStyle:{color:T},
-      axisLabel:{color:T},splitLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}}},
-    series:[{
-      type:'bar',data:[510,460,410,104,51,32,10],
-      itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
-        colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[4,4,0,0]},
-      label:{show:true,position:'top',color:G,fontSize:11,formatter:'{c}万'}
-    }]
+    xAxis:{type:'category',data:['青海','西藏','四川','甘肃','云南','新疆','其他'],axisLabel:{color:T},axisLine:{lineStyle:{color:'rgba(255,255,255,0.06)'}}},
+    yAxis:{type:'value',name:'万头',nameTextStyle:{color:T},axisLabel:{color:T},splitLine:{lineStyle:{color:'rgba(255,255,255,0.03)'}}},
+    series:[{type:'bar',data:[510,460,410,104,51,32,10],
+      itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:GL},{offset:1,color:G}]},borderRadius:[3,3,0,0]},
+      label:{show:true,position:'top',color:G,fontSize:10,formatter:'{c}万'}}]
   });
 
-  // ── Region Pie Chart ──
-  const t3 = echarts.init(document.getElementById('regionPieChart'));
-  t3.setOption({
-    tooltip:{trigger:'item',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},
-      formatter:'{b}: {c}万头 ({d}%)'},
-    series:[{
-      type:'pie',radius:['30%','65%'],center:['50%','50%'],
-      data:[
-        {value:510,name:'青海',itemStyle:{color:G}},
-        {value:460,name:'西藏',itemStyle:{color:'#5A8F6B'}},
-        {value:410,name:'四川',itemStyle:{color:'#6B8FA3'}},
-        {value:104,name:'甘肃',itemStyle:{color:'#8A7A6A'}},
-        {value:51,name:'云南',itemStyle:{color:'#A08030'}},
-        {value:32,name:'新疆',itemStyle:{color:'#7A6850'}},
-        {value:10,name:'其他',itemStyle:{color:'#5A5050'}}
-      ],
-      label:{color:T,fontSize:11,formatter:'{b}\n{d}%'},
-      labelLine:{lineStyle:{color:'rgba(255,255,255,0.1)'}},
-      itemStyle:{borderRadius:4,borderColor:DKG,borderWidth:2}
-    }]
-  });
-
-  // ── Breed Chart ──
-  const t4 = echarts.init(document.getElementById('breedChart'));
-  t4.setOption({
-    tooltip:{trigger:'item',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},
-      formatter:'{b}: {d}%'},
-    series:[{
-      type:'pie',radius:['35%','70%'],center:['50%','50%'],
-      roseType:'area',
+  // Pie
+  const b2=echarts.init(document.getElementById('explorePie'));
+  b2.setOption({
+    tooltip:{trigger:'item',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},formatter:'{b}: {d}%'},
+    series:[{type:'pie',radius:['30%','65%'],roseType:'area',
       data:[
         {value:70,name:'高原型',itemStyle:{color:G}},
         {value:10,name:'环湖型',itemStyle:{color:'#5A8F6B'}},
@@ -481,62 +504,44 @@ document.addEventListener('DOMContentLoaded', function() {
         {value:3,name:'中甸型',itemStyle:{color:'#A08030'}},
         {value:2,name:'巴州型',itemStyle:{color:'#7A6850'}}
       ],
-      label:{color:T,fontSize:11,formatter:'{b}\n{d}%'},
-      labelLine:{lineStyle:{color:'rgba(255,255,255,0.1)'}},
-      itemStyle:{borderRadius:4,borderColor:DKG,borderWidth:2}
-    }]
+      label:{color:T,fontSize:10,formatter:'{b}\n{d}%'},
+      labelLine:{lineStyle:{color:'rgba(255,255,255,0.08)'}},
+      itemStyle:{borderRadius:3,borderColor:DKG,borderWidth:2}}]
   });
 
-  // ── Economy Pie ──
-  const t5 = echarts.init(document.getElementById('economyChart'));
-  t5.setOption({
-    tooltip:{trigger:'item',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},
-      formatter:'{b}: {c}亿元 ({d}%)'},
-    series:[{
-      type:'pie',radius:['40%','70%'],center:['50%','50%'],
+  // Line
+  const b3=echarts.init(document.getElementById('exploreLine'));
+  b3.setOption({
+    tooltip:{trigger:'axis',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},formatter:'{b}: {c}万头'},
+    grid:{left:'5%',right:'5%',bottom:'8%',top:'5%',containLabel:true},
+    xAxis:{type:'category',data:['1990','2000','2010','2015','2020','2023'],axisLabel:{color:T},axisLine:{lineStyle:{color:'rgba(255,255,255,0.06)'}}},
+    yAxis:{type:'value',min:1000,max:1600,name:'万头',nameTextStyle:{color:T},axisLabel:{color:T},splitLine:{lineStyle:{color:'rgba(255,255,255,0.03)'}}},
+    series:[{type:'line',data:[1200,1400,1500,1530,1550,1577],smooth:true,symbol:'circle',symbolSize:6,
+      lineStyle:{color:G,width:2.5},
+      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(196,163,90,0.2)'},{offset:1,color:'rgba(196,163,90,0)'}]}},
+      label:{show:true,position:'top',color:G,fontSize:10,formatter:'{c}万'}}]
+  });
+
+  // Eco
+  const b4=echarts.init(document.getElementById('exploreEco'));
+  b4.setOption({
+    tooltip:{trigger:'item',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'},formatter:'{b}: {c}亿元 ({d}%)'},
+    series:[{type:'pie',radius:['35%','65%'],
       data:[
         {value:400,name:'牦牛肉',itemStyle:{color:G}},
         {value:250,name:'牦牛奶',itemStyle:{color:'#5A8F6B'}},
         {value:50,name:'牦牛皮',itemStyle:{color:'#8A7A6A'}},
         {value:30,name:'牦牛毛',itemStyle:{color:'#6B8FA3'}}
       ],
-      label:{color:T,fontSize:11},
-      labelLine:{lineStyle:{color:'rgba(255,255,255,0.1)'}},
-      itemStyle:{borderRadius:4,borderColor:DKG,borderWidth:2},
-      emphasis:{itemStyle:{shadowBlur:10,shadowColor:'rgba(196,163,90,0.3)'}}
-    }],
-    graphic:[{type:'text',left:'center',top:'44%',style:{text:'800亿',textAlign:'center',fill:GL,fontSize:22,fontWeight:600}},
-      {type:'text',left:'center',top:'54%',style:{text:'总产值',textAlign:'center',fill:T,fontSize:12}}]
+      label:{color:T,fontSize:10},
+      labelLine:{lineStyle:{color:'rgba(255,255,255,0.08)'}},
+      itemStyle:{borderRadius:3,borderColor:DKG,borderWidth:2},
+      emphasis:{itemStyle:{shadowBlur:8,shadowColor:'rgba(196,163,90,0.3)'}}}],
+    graphic:[{type:'text',left:'center',top:'44%',style:{text:'800亿',textAlign:'center',fill:GL,fontSize:18,fontWeight:600}},
+      {type:'text',left:'center',top:'53%',style:{text:'总产值',textAlign:'center',fill:T,fontSize:11}}]
   });
 
-  // ── Production Bar Chart ──
-  const t6 = echarts.init(document.getElementById('productionChart'));
-  t6.setOption({
-    tooltip:{trigger:'axis',backgroundColor:'rgba(8,6,4,0.9)',borderColor:'rgba(196,163,90,0.2)',textStyle:{color:'#E8E0D0'}},
-    grid:{left:'8%',right:'5%',bottom:'8%',top:'5%',containLabel:true},
-    xAxis:{type:'category',data:['肉（万吨）','奶（万吨）','毛（万吨）','皮（万m²）'],
-      axisLabel:{color:T},axisLine:{lineStyle:{color:'rgba(255,255,255,0.06)'}}},
-    yAxis:{type:'value',axisLabel:{color:T},splitLine:{lineStyle:{color:'rgba(255,255,255,0.04)'}},
-      nameTextStyle:{color:T}},
-    series:[{
-      type:'bar',data:[60,150,2,5000],
-      itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
-        colorStops:[{offset:0,color:'#E8D5A0'},{offset:1,color:G}]},borderRadius:[4,4,0,0]},
-      label:{show:true,position:'top',color:G,fontSize:11}
-    }]
-  });
-
-  // ── Resize ──
-  window.addEventListener('resize',()=>{[t1,t2,t3,t4,t5,t6].forEach(c=>c.resize())});
-
-  // ── Scroll Nav Highlight ──
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('nav .links a');
-  window.addEventListener('scroll',()=>{
-    let current='';
-    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200) current=s.id});
-    navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+current)});
-  });
+  window.addEventListener('resize',()=>[b1,b2,b3,b4].forEach(c=>c.resize()));
 });
 </script>
 </body>

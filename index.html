@@ -205,9 +205,9 @@ section { padding: 80px 0; position: relative; }
    Yak silhouette decoration
    ════════════════════════════════════════════════════════ */
 .yak-silhouette {
-  width: 200px; height: 100px;
+  width: 240px; height: 120px;
   margin: 0 auto 2rem;
-  opacity: 0.2;
+  opacity: 0.25;
 }
 .yak-silhouette svg { width: 100%; height: 100%; }
 
@@ -238,11 +238,49 @@ footer {
 <section class="hero">
   <div class="hero-content">
     <div class="yak-silhouette">
-      <svg viewBox="0 0 200 100">
-        <path d="M40,70 L30,80 L25,75 L30,65 L35,60 L45,55 L55,50 L65,48 L80,45 L100,43 L120,44 L140,46 L155,50 L165,55 L170,60 L175,65 L178,70 L175,72 L170,70 L168,65 L165,62 L160,58 L150,54 L140,51 L130,49 L115,47 L100,46 L85,47 L70,49 L60,52 L50,56 L42,62 Z" fill="#c8a45c"/>
-        <path d="M20,78 L35,68 L50,60 L70,52 L90,48 L110,47 L130,49 L150,53 L168,58" fill="none" stroke="#c8a45c" stroke-width="2"/>
-        <circle cx="55" cy="48" r="3" fill="#c8a45c"/>
-        <circle cx="65" cy="46" r="2.5" fill="#c8a45c"/>
+      <svg viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <path d="M80,120 C60,115 40,105 30,95 L25,85 C20,75 18,65 22,55 
+                 L30,45 L40,38 L55,32 L75,28 L100,26 L130,25 
+                 L160,26 L185,30 L205,36 L220,44 L230,52 L235,60 
+                 L238,68 L240,76 L238,84 L232,90 L220,96 
+                 L200,102 L175,108 L150,112 L125,115 L100,118 Z" 
+              fill="#c8a45c" opacity="0.9"/>
+        <!-- Thick neck fur -->
+        <path d="M30,45 L22,38 L18,42 L15,50 L14,58 L16,65 L20,70 L25,72 L30,68 L35,60 L38,52 L35,45 Z" 
+              fill="#c8a45c" opacity="0.7"/>
+        <!-- Head -->
+        <path d="M22,55 L16,50 L10,48 L6,50 L4,54 L5,58 L8,60 L14,60 L18,58 L22,56 Z" 
+              fill="#c8a45c"/>
+        <!-- Left horn -->
+        <path d="M10,48 L8,38 L6,30 L5,25 L7,22 L10,26 L12,34 L14,42 L12,48 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <!-- Right horn -->
+        <path d="M16,48 L18,38 L20,30 L22,24 L24,22 L25,26 L23,34 L21,42 L18,48 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <!-- Eye -->
+        <circle cx="12" cy="52" r="1.5" fill="#0a0e17"/>
+        <!-- Tail -->
+        <path d="M235,60 L250,55 L260,52 L268,50 L272,52 L270,56 L262,60 L252,64 L242,66 L238,64 Z" 
+              fill="#c8a45c" opacity="0.75"/>
+        <!-- Tail hair tuft -->
+        <path d="M268,50 L274,46 L278,44 L280,46 L278,50 L274,54 L270,56 Z" 
+              fill="#c8a45c" opacity="0.65"/>
+        <!-- Front legs -->
+        <path d="M80,118 L76,130 L74,138 L72,142 L76,144 L80,142 L82,136 L84,128 L86,120 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <path d="M95,118 L92,130 L90,138 L88,142 L92,144 L96,142 L98,136 L99,128 L100,120 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <!-- Back legs -->
+        <path d="M195,100 L192,118 L190,130 L188,138 L186,142 L190,144 L194,142 L196,136 L198,126 L200,116 L202,104 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <path d="M215,96 L214,114 L212,128 L210,138 L208,142 L212,144 L216,142 L218,134 L220,124 L222,112 L222,100 Z" 
+              fill="#c8a45c" opacity="0.85"/>
+        <!-- Belly fur hanging down -->
+        <path d="M80,118 L85,122 L95,120 L105,124 L115,122 L125,126 L135,124 L145,127 L155,124 L165,126 L175,122 L185,118 L195,114 L200,108 L190,106 L180,110 L165,114 L150,116 L135,118 L120,119 L105,118 L90,116 Z" 
+              fill="#c8a45c" opacity="0.5"/>
+        <!-- Nostril -->
+        <circle cx="6" cy="55" r="0.8" fill="#0a0e17"/>
       </svg>
     </div>
     <h1>中国牦牛产业数据平台</h1>

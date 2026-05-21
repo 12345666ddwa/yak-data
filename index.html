@@ -86,6 +86,21 @@ section{padding:48px 0;position:relative}
 .tli .d{font-size:0.6rem;color:#3A4250}.tli .t{font-size:0.72rem;color:#D0D4DC}.tli .c{font-size:0.64rem;color:#5A6270}
 
 footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01);color:#3A4250;font-size:0.7rem}
+
+/* Practice Section */
+.pc{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:900px){.pc{grid-template-columns:1fr}}
+.pci{background:rgba(255,255,255,0.006);border:1px solid rgba(79,191,168,0.05);border-radius:4px;padding:18px;transition:border-color 0.2s}
+.pci:hover{border-color:rgba(79,191,168,0.15)}
+.pci .ico{width:44px;height:44px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:10px;color:#fff}
+.pci h4{font-size:0.82rem;color:#E8ECF0;margin-bottom:6px}
+.pci p{font-size:0.68rem;color:#788090;line-height:1.7;margin-bottom:10px}
+.pci .tg2{display:inline-block;font-size:0.55rem;color:#3A4250;background:rgba(79,191,168,0.04);padding:1px 6px;border-radius:2px;margin-right:4px}
+.pci .ph{background:rgba(255,255,255,0.008);border:1px solid rgba(79,191,168,0.06);border-radius:3px;padding:6px;text-align:center;font-size:0.6rem;color:#3A4250;margin-top:8px;font-style:normal}
+.pc-btm{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:16px;background:rgba(255,255,255,0.004);border:1px solid rgba(79,191,168,0.03);border-radius:4px}
+.pc-btm span{font-size:0.7rem;color:#4FBFA8;display:flex;align-items:center;gap:6px}
+.pc-btm span::before{content:'';width:4px;height:4px;background:#4FBFA8;border-radius:50%;display:inline-block}
+
 </style>
 </head>
 <body>
@@ -97,6 +112,7 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
   <a href="#dict">数据字典</a>
   <a href="#query">查询</a>
   <a href="#quality">质控</a>
+  <a href="#practice">实践</a>
 </nav>
 
 <!-- ═══════════════════ DASHBOARD ═══════════════════ -->
@@ -406,6 +422,47 @@ footer{padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.01
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <div class="sn">06 · 产业实践</div>
+    <div class="sh">川山小牧喜 · 技术基础设施与品质保障</div>
+    <p class="ss">项目率先搭建松潘牦牛专属信息数据库，联合高校制定高原牦牛肉生产质量分级团体标准，统一地方行业生产规范。同步搭建全流程产品溯源管理体系，完整记录牦牛养殖、屠宰加工、仓储流通等关键环节信息，适配电商线上售卖溯源需求，实现养殖源头到终端餐桌全程可查、来源可溯，切实保障农特产品网销安全，稳步构建线上消费信任体系。</p>
+    <div class="pc">
+      <div class="pci">
+        <div class="ico" style="background:rgba(79,191,168,0.12);color:#4FBFA8">DB</div>
+        <h4>松潘牦牛专属信息数据库</h4>
+        <p>联合高校整合养殖环境、牦牛品种、生长周期、防疫记录、加工参数等核心数据资产，实现数据驱动的科学养殖与精准决策。</p>
+        <span class="tg2">数据驱动</span>
+        <span class="tg2">高校联合</span>
+        <div class="ph">[ 数据库系统界面截图 ]</div>
+      </div>
+      <div class="pci">
+        <div class="ico" style="background:rgba(192,57,43,0.12);color:#E85545">标准</div>
+        <h4>高原牦牛肉质量分级团体标准</h4>
+        <p>联合高校制定高原牦牛肉生产质量分级团体标准，统一地方行业生产规范。从肉质色泽、脂肪分布、营养指标、屠宰工艺等维度建立科学分级体系，填补行业标准空白。</p>
+        <span class="tg2">行业标准</span>
+        <span class="tg2">质量分级</span>
+        <div class="ph">[ 团体标准文件 / 质检报告照片 ]</div>
+      </div>
+      <div class="pci">
+        <div class="ico" style="background:rgba(226,201,146,0.12);color:#E2C992">溯</div>
+        <h4>全流程产品溯源管理体系</h4>
+        <p>完整记录牦牛养殖、屠宰加工、仓储流通等关键环节信息，适配电商线上售卖溯源需求，实现"养殖源头到终端餐桌全程可查、来源可溯"，切实保障网销安全。</p>
+        <span class="tg2">一物一码</span>
+        <span class="tg2">区块链</span>
+        <div class="ph">[ 溯源系统 / 一物一码界面 ]</div>
+      </div>
+    </div>
+    <div class="pc-btm">
+      <span>数据库 + 高校联合</span>
+      <span>团体标准填补空白</span>
+      <span>全链路溯源可查</span>
+      <span>一物一码适配电商</span>
+      <span>构建消费信任体系</span>
     </div>
   </div>
 </section>
